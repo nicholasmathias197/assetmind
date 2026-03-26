@@ -1,0 +1,30 @@
+spring:
+  application:
+    name: assetmind-application
+  datasource:
+    url: ${ASSETMIND_DB_URL:jdbc:mysql://localhost:3306/assetmind}
+    username: ${ASSETMIND_DB_USERNAME:root}
+    password: ${ASSETMIND_DB_PASSWORD:Postgres1}
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        format_sql: true
+  flyway:
+    enabled: true
+
+server:
+  port: ${SERVER_PORT:8080}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+
+jwt:
+  secret: ${JWT_SECRET:assetmind-super-secret-key-min-32-chars-1234567890}
+  access-token-expiration: ${JWT_ACCESS_TOKEN_EXPIRATION:3600000}
+  refresh-token-expiration: ${JWT_REFRESH_TOKEN_EXPIRATION:86400000}
+
