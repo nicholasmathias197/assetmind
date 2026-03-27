@@ -1,0 +1,168 @@
+[INFO] Scanning for projects...
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Build Order:
+[INFO] 
+[INFO] assetmind-parent                                                   [pom]
+[INFO] assetmind-core                                                     [jar]
+[INFO] assetmind-ai                                                       [jar]
+[INFO] assetmind-infrastructure                                           [jar]
+[INFO] assetmind-api                                                      [jar]
+[INFO] assetmind-batch                                                    [jar]
+[INFO] assetmind-application                                              [jar]
+[INFO] 
+[INFO] -------------------< com.assetmind:assetmind-parent >-------------------
+[INFO] Building assetmind-parent 1.0.0                                    [1/7]
+[INFO]   from pom.xml
+[INFO] --------------------------------[ pom ]---------------------------------
+[INFO] 
+[INFO] --------------------< com.assetmind:assetmind-core >--------------------
+[INFO] Building assetmind-core 1.0.0                                      [2/7]
+[INFO]   from assetmind-core\pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ assetmind-core ---
+[INFO] skip non existing resourceDirectory C:\Users\nicholas.mathias\IdeaProjects\assetmind\assetmind\assetmind-core\src\main\resources
+[INFO] skip non existing resourceDirectory C:\Users\nicholas.mathias\IdeaProjects\assetmind\assetmind\assetmind-core\src\main\resources
+[INFO] 
+[INFO] --- compiler:3.11.0:compile (default-compile) @ assetmind-core ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ assetmind-core ---
+[INFO] skip non existing resourceDirectory C:\Users\nicholas.mathias\IdeaProjects\assetmind\assetmind\assetmind-core\src\test\resources
+[INFO] 
+[INFO] --- compiler:3.11.0:testCompile (default-testCompile) @ assetmind-core ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] --- surefire:3.1.2:test (default-test) @ assetmind-core ---
+[INFO] 
+[INFO] ---------------------< com.assetmind:assetmind-ai >---------------------
+[INFO] Building assetmind-ai 1.0.0                                        [3/7]
+[INFO]   from assetmind-ai\pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ assetmind-ai ---
+[INFO] skip non existing resourceDirectory C:\Users\nicholas.mathias\IdeaProjects\assetmind\assetmind\assetmind-ai\src\main\resources
+[INFO] skip non existing resourceDirectory C:\Users\nicholas.mathias\IdeaProjects\assetmind\assetmind\assetmind-ai\src\main\resources
+[INFO] 
+[INFO] --- compiler:3.11.0:compile (default-compile) @ assetmind-ai ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ assetmind-ai ---
+[INFO] skip non existing resourceDirectory C:\Users\nicholas.mathias\IdeaProjects\assetmind\assetmind\assetmind-ai\src\test\resources
+[INFO] 
+[INFO] --- compiler:3.11.0:testCompile (default-testCompile) @ assetmind-ai ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- surefire:3.1.2:test (default-test) @ assetmind-ai ---
+[INFO] No tests to run.
+[INFO] 
+[INFO] ---------------< com.assetmind:assetmind-infrastructure >---------------
+[INFO] Building assetmind-infrastructure 1.0.0                            [4/7]
+[INFO]   from assetmind-infrastructure\pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ assetmind-infrastructure ---
+[INFO] skip non existing resourceDirectory C:\Users\nicholas.mathias\IdeaProjects\assetmind\assetmind\assetmind-infrastructure\src\main\resources
+[INFO] skip non existing resourceDirectory C:\Users\nicholas.mathias\IdeaProjects\assetmind\assetmind\assetmind-infrastructure\src\main\resources
+[INFO] 
+[INFO] --- compiler:3.11.0:compile (default-compile) @ assetmind-infrastructure ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ assetmind-infrastructure ---
+[INFO] skip non existing resourceDirectory C:\Users\nicholas.mathias\IdeaProjects\assetmind\assetmind\assetmind-infrastructure\src\test\resources
+[INFO] 
+[INFO] --- compiler:3.11.0:testCompile (default-testCompile) @ assetmind-infrastructure ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- surefire:3.1.2:test (default-test) @ assetmind-infrastructure ---
+[INFO] No tests to run.
+[INFO] 
+[INFO] --------------------< com.assetmind:assetmind-api >---------------------
+[INFO] Building assetmind-api 1.0.0                                       [5/7]
+[INFO]   from assetmind-api\pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ assetmind-api ---
+[INFO] skip non existing resourceDirectory C:\Users\nicholas.mathias\IdeaProjects\assetmind\assetmind\assetmind-api\src\main\resources
+[INFO] skip non existing resourceDirectory C:\Users\nicholas.mathias\IdeaProjects\assetmind\assetmind\assetmind-api\src\main\resources
+[INFO] 
+[INFO] --- compiler:3.11.0:compile (default-compile) @ assetmind-api ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ assetmind-api ---
+[INFO] skip non existing resourceDirectory C:\Users\nicholas.mathias\IdeaProjects\assetmind\assetmind\assetmind-api\src\test\resources
+[INFO] 
+[INFO] --- compiler:3.11.0:testCompile (default-testCompile) @ assetmind-api ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- surefire:3.1.2:test (default-test) @ assetmind-api ---
+[INFO] No tests to run.
+[INFO] 
+[INFO] -------------------< com.assetmind:assetmind-batch >--------------------
+[INFO] Building assetmind-batch 1.0.0                                     [6/7]
+[INFO]   from assetmind-batch\pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ assetmind-batch ---
+[INFO] skip non existing resourceDirectory C:\Users\nicholas.mathias\IdeaProjects\assetmind\assetmind\assetmind-batch\src\main\resources
+[INFO] skip non existing resourceDirectory C:\Users\nicholas.mathias\IdeaProjects\assetmind\assetmind\assetmind-batch\src\main\resources
+[INFO] 
+[INFO] --- compiler:3.11.0:compile (default-compile) @ assetmind-batch ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ assetmind-batch ---
+[INFO] skip non existing resourceDirectory C:\Users\nicholas.mathias\IdeaProjects\assetmind\assetmind\assetmind-batch\src\test\resources
+[INFO] 
+[INFO] --- compiler:3.11.0:testCompile (default-testCompile) @ assetmind-batch ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- surefire:3.1.2:test (default-test) @ assetmind-batch ---
+[INFO] No tests to run.
+[INFO] 
+[INFO] ----------------< com.assetmind:assetmind-application >-----------------
+[INFO] Building assetmind-application 1.0.0                               [7/7]
+[INFO]   from assetmind-application\pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ assetmind-application ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] Copying 3 resources from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.11.0:compile (default-compile) @ assetmind-application ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ assetmind-application ---
+[INFO] Copying 1 resource from src\test\resources to target\test-classes
+[INFO] 
+[INFO] --- compiler:3.11.0:testCompile (default-testCompile) @ assetmind-application ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] --- surefire:3.1.2:test (default-test) @ assetmind-application ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.assetmind.application.JwtTokenProviderTest
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.424 s -- in com.assetmind.application.JwtTokenProviderTest
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Summary for assetmind-parent 1.0.0:
+[INFO] 
+[INFO] assetmind-parent ................................... SUCCESS [  0.005 s]
+[INFO] assetmind-core ..................................... SUCCESS [  0.892 s]
+[INFO] assetmind-ai ....................................... SUCCESS [  0.046 s]
+[INFO] assetmind-infrastructure ........................... SUCCESS [  0.395 s]
+[INFO] assetmind-api ...................................... SUCCESS [  0.182 s]
+[INFO] assetmind-batch .................................... SUCCESS [  0.048 s]
+[INFO] assetmind-application .............................. SUCCESS [  2.413 s]
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  4.384 s
+[INFO] Finished at: 2026-03-27T13:10:48-04:00
+[INFO] ------------------------------------------------------------------------

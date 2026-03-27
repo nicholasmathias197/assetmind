@@ -1,0 +1,286 @@
+[INFO] Scanning for projects...
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Build Order:
+[INFO] 
+[INFO] assetmind-parent                                                   [pom]
+[INFO] assetmind-core                                                     [jar]
+[INFO] assetmind-ai                                                       [jar]
+[INFO] assetmind-infrastructure                                           [jar]
+[INFO] assetmind-api                                                      [jar]
+[INFO] assetmind-batch                                                    [jar]
+[INFO] assetmind-application                                              [jar]
+[INFO] 
+[INFO] -------------------< com.assetmind:assetmind-parent >-------------------
+[INFO] Building assetmind-parent 1.0.0                                    [1/7]
+[INFO]   from pom.xml
+[INFO] --------------------------------[ pom ]---------------------------------
+[INFO] 
+[INFO] --- install:3.1.1:install (default-install) @ assetmind-parent ---
+[INFO] Installing C:\Users\nicholas.mathias\IdeaProjects\assetmind\assetmind\pom.xml to C:\Users\nicholas.mathias\.m2\repository\com\assetmind\assetmind-parent\1.0.0\assetmind-parent-1.0.0.pom
+[INFO] 
+[INFO] --------------------< com.assetmind:assetmind-core >--------------------
+[INFO] Building assetmind-core 1.0.0                                      [2/7]
+[INFO]   from assetmind-core\pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ assetmind-core ---
+[INFO] skip non existing resourceDirectory C:\Users\nicholas.mathias\IdeaProjects\assetmind\assetmind\assetmind-core\src\main\resources
+[INFO] skip non existing resourceDirectory C:\Users\nicholas.mathias\IdeaProjects\assetmind\assetmind\assetmind-core\src\main\resources
+[INFO] 
+[INFO] --- compiler:3.11.0:compile (default-compile) @ assetmind-core ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ assetmind-core ---
+[INFO] skip non existing resourceDirectory C:\Users\nicholas.mathias\IdeaProjects\assetmind\assetmind\assetmind-core\src\test\resources
+[INFO] 
+[INFO] --- compiler:3.11.0:testCompile (default-testCompile) @ assetmind-core ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] --- surefire:3.1.2:test (default-test) @ assetmind-core ---
+[INFO] Tests are skipped.
+[INFO] 
+[INFO] --- jar:3.3.0:jar (default-jar) @ assetmind-core ---
+[INFO] 
+[INFO] --- install:3.1.1:install (default-install) @ assetmind-core ---
+[INFO] Installing C:\Users\nicholas.mathias\IdeaProjects\assetmind\assetmind\assetmind-core\pom.xml to C:\Users\nicholas.mathias\.m2\repository\com\assetmind\assetmind-core\1.0.0\assetmind-core-1.0.0.pom
+[INFO] Installing C:\Users\nicholas.mathias\IdeaProjects\assetmind\assetmind\assetmind-core\target\assetmind-core-1.0.0.jar to C:\Users\nicholas.mathias\.m2\repository\com\assetmind\assetmind-core\1.0.0\assetmind-core-1.0.0.jar
+[INFO] 
+[INFO] ---------------------< com.assetmind:assetmind-ai >---------------------
+[INFO] Building assetmind-ai 1.0.0                                        [3/7]
+[INFO]   from assetmind-ai\pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+Downloading from spring-milestones: https://repo.spring.io/milestone/org/springframework/ai/spring-ai-core/0.8.1/spring-ai-core-0.8.1.pom
+Progress (1): 0.4/3.9 kBProgress (1): 1.8/3.9 kBProgress (1): 3.2/3.9 kBProgress (1): 3.9 kB                        Downloaded from spring-milestones: https://repo.spring.io/milestone/org/springframework/ai/spring-ai-core/0.8.1/spring-ai-core-0.8.1.pom (3.9 kB at 8.8 kB/s)
+Downloading from central-secure: https://repo.maven.apache.org/maven2/com/github/victools/jsonschema-generator-parent/4.33.1/jsonschema-generator-parent-4.33.1.pom
+Progress (1): 1.1 kBProgress (1): 2.5 kBProgress (1): 5.1 kBProgress (1): 7.3 kBProgress (1): 10 kB Progress (1): 14 kBProgress (1): 18 kB                   Downloaded from central-secure: https://repo.maven.apache.org/maven2/com/github/victools/jsonschema-generator-parent/4.33.1/jsonschema-generator-parent-4.33.1.pom (18 kB at 95 kB/s)
+Downloading from spring-milestones: https://repo.spring.io/milestone/org/springframework/cloud/spring-cloud-function-context/4.1.0/spring-cloud-function-context-4.1.0.pom
+Downloading from central-secure: https://repo.maven.apache.org/maven2/org/springframework/cloud/spring-cloud-function-context/4.1.0/spring-cloud-function-context-4.1.0.pom
+Progress (1): 1.5 kBProgress (1): 4.3 kBProgress (1): 5.6 kB                    Downloaded from central-secure: https://repo.maven.apache.org/maven2/org/springframework/cloud/spring-cloud-function-context/4.1.0/spring-cloud-function-context-4.1.0.pom (5.6 kB at 83 kB/s)
+Downloading from spring-milestones: https://repo.spring.io/milestone/org/springframework/cloud/spring-cloud-function-parent/4.1.0/spring-cloud-function-parent-4.1.0.pom
+Downloading from central-secure: https://repo.maven.apache.org/maven2/org/springframework/cloud/spring-cloud-function-parent/4.1.0/spring-cloud-function-parent-4.1.0.pom
+Progress (1): 1.2 kBProgress (1): 2.7 kBProgress (1): 5.8 kBProgress (1): 6.5 kB                    Downloaded from central-secure: https://repo.maven.apache.org/maven2/org/springframework/cloud/spring-cloud-function-parent/4.1.0/spring-cloud-function-parent-4.1.0.pom (6.5 kB at 95 kB/s)
+Downloading from spring-milestones: https://repo.spring.io/milestone/org/springframework/cloud/spring-cloud-build/4.1.0/spring-cloud-build-4.1.0.pom
+Downloading from central-secure: https://repo.maven.apache.org/maven2/org/springframework/cloud/spring-cloud-build/4.1.0/spring-cloud-build-4.1.0.pom
+Progress (1): 935 BProgress (1): 2.3 kBProgress (1): 4.7 kBProgress (1): 7.3 kBProgress (1): 9.6 kBProgress (1): 11 kB Progress (1): 14 kBProgress (1): 15 kBProgress (1): 19 kBProgress (1): 23 kBProgress (1): 25 kBProgress (1): 28 kBProgress (1): 32 kBProgress (1): 34 kBProgress (1): 37 kBProgress (1): 42 kBProgress (1): 43 kBProgress (1): 47 kBProgress (1): 50 kBProgress (1): 50 kB                   Downloaded from central-secure: https://repo.maven.apache.org/maven2/org/springframework/cloud/spring-cloud-build/4.1.0/spring-cloud-build-4.1.0.pom (50 kB at 576 kB/s)
+Downloading from central-secure: https://repo.maven.apache.org/maven2/org/springframework/cloud/spring-cloud-function-dependencies/4.1.0/spring-cloud-function-dependencies-4.1.0.pom
+Progress (1): 1.2 kBProgress (1): 2.1 kBProgress (1): 6.8 kB                    Downloaded from central-secure: https://repo.maven.apache.org/maven2/org/springframework/cloud/spring-cloud-function-dependencies/4.1.0/spring-cloud-function-dependencies-4.1.0.pom (6.8 kB at 96 kB/s)
+Downloading from central-secure: https://repo.maven.apache.org/maven2/org/springframework/cloud/spring-cloud-dependencies-parent/4.1.0/spring-cloud-dependencies-parent-4.1.0.pom
+Progress (1): 1.0 kBProgress (1): 2.2 kBProgress (1): 4.5 kBProgress (1): 8.1 kB                    Downloaded from central-secure: https://repo.maven.apache.org/maven2/org/springframework/cloud/spring-cloud-dependencies-parent/4.1.0/spring-cloud-dependencies-parent-4.1.0.pom (8.1 kB at 147 kB/s)
+Downloading from central-secure: https://repo.maven.apache.org/maven2/org/springframework/cloud/spring-cloud-build-dependencies/4.1.0/spring-cloud-build-dependencies-4.1.0.pom
+Progress (1): 1.2 kBProgress (1): 3.1 kBProgress (1): 3.2 kB                    Downloaded from central-secure: https://repo.maven.apache.org/maven2/org/springframework/cloud/spring-cloud-build-dependencies/4.1.0/spring-cloud-build-dependencies-4.1.0.pom (3.2 kB at 52 kB/s)
+Downloading from spring-milestones: https://repo.spring.io/milestone/net/jodah/typetools/0.6.2/typetools-0.6.2.pom
+Downloading from central-secure: https://repo.maven.apache.org/maven2/net/jodah/typetools/0.6.2/typetools-0.6.2.pom
+Progress (1): 1.2 kBProgress (1): 3.0 kBProgress (1): 6.4 kBProgress (1): 6.8 kB                    Downloaded from central-secure: https://repo.maven.apache.org/maven2/net/jodah/typetools/0.6.2/typetools-0.6.2.pom (6.8 kB at 129 kB/s)
+Downloading from spring-milestones: https://repo.spring.io/milestone/org/springframework/cloud/spring-cloud-function-core/4.1.0/spring-cloud-function-core-4.1.0.pom
+Downloading from central-secure: https://repo.maven.apache.org/maven2/org/springframework/cloud/spring-cloud-function-core/4.1.0/spring-cloud-function-core-4.1.0.pom
+Progress (1): 1.0 kB                    Downloaded from central-secure: https://repo.maven.apache.org/maven2/org/springframework/cloud/spring-cloud-function-core/4.1.0/spring-cloud-function-core-4.1.0.pom (1.0 kB at 16 kB/s)
+Downloading from central-secure: https://repo.maven.apache.org/maven2/org/antlr/antlr4-master/4.13.1/antlr4-master-4.13.1.pom
+Progress (1): 964 BProgress (1): 2.4 kBProgress (1): 4.3 kBProgress (1): 4.8 kB                    Downloaded from central-secure: https://repo.maven.apache.org/maven2/org/antlr/antlr4-master/4.13.1/antlr4-master-4.13.1.pom (4.8 kB at 65 kB/s)
+Downloading from spring-milestones: https://repo.spring.io/milestone/com/knuddels/jtokkit/1.0.0/jtokkit-1.0.0.pom
+Downloading from central-secure: https://repo.maven.apache.org/maven2/com/knuddels/jtokkit/1.0.0/jtokkit-1.0.0.pom
+Progress (1): 956 BProgress (1): 1.6 kB                    Downloaded from central-secure: https://repo.maven.apache.org/maven2/com/knuddels/jtokkit/1.0.0/jtokkit-1.0.0.pom (1.6 kB at 23 kB/s)
+Downloading from spring-milestones: https://repo.spring.io/milestone/com/github/victools/jsonschema-generator/4.31.1/jsonschema-generator-4.31.1.pom
+Downloading from central-secure: https://repo.maven.apache.org/maven2/com/github/victools/jsonschema-generator/4.31.1/jsonschema-generator-4.31.1.pom
+Progress (1): 1.5 kBProgress (1): 2.2 kB                    Downloaded from central-secure: https://repo.maven.apache.org/maven2/com/github/victools/jsonschema-generator/4.31.1/jsonschema-generator-4.31.1.pom (2.2 kB at 42 kB/s)
+Downloading from spring-milestones: https://repo.spring.io/milestone/com/github/victools/jsonschema-generator-parent/4.31.1/jsonschema-generator-parent-4.31.1.pom
+Downloading from central-secure: https://repo.maven.apache.org/maven2/com/github/victools/jsonschema-generator-parent/4.31.1/jsonschema-generator-parent-4.31.1.pom
+Progress (1): 1.1 kBProgress (1): 2.5 kBProgress (1): 5.1 kBProgress (1): 8.3 kBProgress (1): 11 kB Progress (1): 16 kBProgress (1): 18 kB                   Downloaded from central-secure: https://repo.maven.apache.org/maven2/com/github/victools/jsonschema-generator-parent/4.31.1/jsonschema-generator-parent-4.31.1.pom (18 kB at 236 kB/s)
+Downloading from spring-milestones: https://repo.spring.io/milestone/com/github/victools/jsonschema-generator-bom/4.31.1/jsonschema-generator-bom-4.31.1.pom
+Downloading from central-secure: https://repo.maven.apache.org/maven2/com/github/victools/jsonschema-generator-bom/4.31.1/jsonschema-generator-bom-4.31.1.pom
+Progress (1): 1.1 kBProgress (1): 4.5 kBProgress (1): 4.7 kB                    Downloaded from central-secure: https://repo.maven.apache.org/maven2/com/github/victools/jsonschema-generator-bom/4.31.1/jsonschema-generator-bom-4.31.1.pom (4.7 kB at 83 kB/s)
+Downloading from spring-milestones: https://repo.spring.io/milestone/org/springframework/ai/spring-ai-core/0.8.1/spring-ai-core-0.8.1.jar
+Progress (1): 16/224 kBProgress (1): 17/224 kBProgress (1): 33/224 kBProgress (1): 34/224 kBProgress (1): 51/224 kBProgress (1): 52/224 kBProgress (1): 53/224 kBProgress (1): 70/224 kBProgress (1): 71/224 kBProgress (1): 87/224 kBProgress (1): 88/224 kBProgress (1): 105/224 kBProgress (1): 106/224 kBProgress (1): 122/224 kBProgress (1): 123/224 kBProgress (1): 139/224 kBProgress (1): 140/224 kBProgress (1): 157/224 kBProgress (1): 158/224 kBProgress (1): 174/224 kBProgress (1): 175/224 kBProgress (1): 192/224 kBProgress (1): 193/224 kBProgress (1): 209/224 kBProgress (1): 210/224 kBProgress (1): 224 kB                        Downloaded from spring-milestones: https://repo.spring.io/milestone/org/springframework/ai/spring-ai-core/0.8.1/spring-ai-core-0.8.1.jar (224 kB at 457 kB/s)
+Downloading from spring-milestones: https://repo.spring.io/milestone/io/swagger/core/v3/swagger-annotations/2.2.20/swagger-annotations-2.2.20.jar
+Downloading from spring-milestones: https://repo.spring.io/milestone/com/github/victools/jsonschema-module-swagger-2/4.33.1/jsonschema-module-swagger-2-4.33.1.jar
+Downloading from spring-milestones: https://repo.spring.io/milestone/net/jodah/typetools/0.6.2/typetools-0.6.2.jar
+Downloading from spring-milestones: https://repo.spring.io/milestone/org/springframework/cloud/spring-cloud-function-context/4.1.0/spring-cloud-function-context-4.1.0.jar
+Downloading from spring-milestones: https://repo.spring.io/milestone/org/springframework/cloud/spring-cloud-function-core/4.1.0/spring-cloud-function-core-4.1.0.jar
+Downloading from spring-milestones: https://repo.spring.io/milestone/org/antlr/stringtemplate/4.0.2/stringtemplate-4.0.2.jar
+Downloading from spring-milestones: https://repo.spring.io/milestone/org/antlr/antlr-runtime/3.3/antlr-runtime-3.3.jar
+Downloading from spring-milestones: https://repo.spring.io/milestone/org/antlr/antlr4-runtime/4.13.1/antlr4-runtime-4.13.1.jar
+Downloading from spring-milestones: https://repo.spring.io/milestone/com/knuddels/jtokkit/1.0.0/jtokkit-1.0.0.jar
+Downloading from spring-milestones: https://repo.spring.io/milestone/com/github/victools/jsonschema-generator/4.31.1/jsonschema-generator-4.31.1.jar
+Downloading from spring-milestones: https://repo.spring.io/milestone/com/github/victools/jsonschema-module-jackson/4.31.1/jsonschema-module-jackson-4.31.1.jar
+Downloading from central-secure: https://repo.maven.apache.org/maven2/io/swagger/core/v3/swagger-annotations/2.2.20/swagger-annotations-2.2.20.jar
+Progress (1): 3.8/47 kBProgress (1): 8.0/47 kBProgress (1): 12/47 kB Progress (1): 16/47 kBProgress (1): 20/47 kBProgress (1): 24/47 kBProgress (1): 28/47 kBProgress (1): 33/47 kBProgress (1): 37/47 kBProgress (1): 41/47 kBProgress (1): 45/47 kBProgress (1): 47 kB                      Downloaded from central-secure: https://repo.maven.apache.org/maven2/io/swagger/core/v3/swagger-annotations/2.2.20/swagger-annotations-2.2.20.jar (47 kB at 45 kB/s)
+Downloading from central-secure: https://repo.maven.apache.org/maven2/com/github/victools/jsonschema-module-swagger-2/4.33.1/jsonschema-module-swagger-2-4.33.1.jar
+Downloading from central-secure: https://repo.maven.apache.org/maven2/org/springframework/cloud/spring-cloud-function-context/4.1.0/spring-cloud-function-context-4.1.0.jar
+Downloading from central-secure: https://repo.maven.apache.org/maven2/net/jodah/typetools/0.6.2/typetools-0.6.2.jar
+Downloading from central-secure: https://repo.maven.apache.org/maven2/org/springframework/cloud/spring-cloud-function-core/4.1.0/spring-cloud-function-core-4.1.0.jar
+Downloading from central-secure: https://repo.maven.apache.org/maven2/org/antlr/stringtemplate/4.0.2/stringtemplate-4.0.2.jar
+Progress (1): 3.1 kBProgress (2): 3.1 kB | 0.9/15 kBProgress (3): 3.1 kB | 0.9/15 kB | 0.9/226 kBProgress (3): 3.1 kB | 2.3/15 kB | 0.9/226 kBProgress (3): 3.1 kB | 2.3/15 kB | 2.3/226 kBProgress (3): 3.1 kB | 3.6/15 kB | 2.3/226 kBProgress (3): 3.1 kB | 3.6/15 kB | 3.6/226 kBProgress (3): 3.1 kB | 5.0/15 kB | 3.6/226 kBProgress (3): 3.1 kB | 5.0/15 kB | 5.0/226 kBProgress (3): 3.1 kB | 6.4/15 kB | 5.0/226 kBProgress (3): 3.1 kB | 6.4/15 kB | 6.4/226 kBProgress (3): 3.1 kB | 7.7/15 kB | 6.4/226 kBProgress (3): 3.1 kB | 7.7/15 kB | 7.7/226 kBProgress (3): 3.1 kB | 9.1/15 kB | 7.7/226 kBProgress (3): 3.1 kB | 10/15 kB | 7.7/226 kB Progress (3): 3.1 kB | 10/15 kB | 9.1/226 kBProgress (3): 3.1 kB | 12/15 kB | 9.1/226 kBProgress (3): 3.1 kB | 12/15 kB | 10/226 kB Progress (3): 3.1 kB | 12/15 kB | 12/226 kBProgress (3): 3.1 kB | 13/15 kB | 12/226 kBProgress (3): 3.1 kB | 15/15 kB | 12/226 kBProgress (3): 3.1 kB | 15 kB | 12/226 kB   Progress (3): 3.1 kB | 15 kB | 13/226 kBProgress (3): 3.1 kB | 15 kB | 15/226 kBProgress (3): 3.1 kB | 15 kB | 16/226 kBProgress (3): 3.1 kB | 15 kB | 17/226 kBProgress (3): 3.1 kB | 15 kB | 19/226 kBProgress (3): 3.1 kB | 15 kB | 20/226 kBProgress (3): 3.1 kB | 15 kB | 21/226 kBProgress (3): 3.1 kB | 15 kB | 23/226 kBProgress (3): 3.1 kB | 15 kB | 24/226 kBProgress (3): 3.1 kB | 15 kB | 25/226 kBProgress (3): 3.1 kB | 15 kB | 27/226 kBProgress (3): 3.1 kB | 15 kB | 28/226 kBProgress (3): 3.1 kB | 15 kB | 30/226 kBProgress (3): 3.1 kB | 15 kB | 31/226 kBProgress (3): 3.1 kB | 15 kB | 32/226 kBProgress (3): 3.1 kB | 15 kB | 34/226 kBProgress (3): 3.1 kB | 15 kB | 35/226 kBProgress (3): 3.1 kB | 15 kB | 36/226 kBProgress (3): 3.1 kB | 15 kB | 38/226 kBProgress (3): 3.1 kB | 15 kB | 39/226 kBProgress (3): 3.1 kB | 15 kB | 41/226 kBProgress (3): 3.1 kB | 15 kB | 42/226 kBProgress (3): 3.1 kB | 15 kB | 43/226 kBProgress (3): 3.1 kB | 15 kB | 45/226 kBProgress (3): 3.1 kB | 15 kB | 46/226 kBProgress (3): 3.1 kB | 15 kB | 47/226 kBProgress (3): 3.1 kB | 15 kB | 49/226 kBProgress (3): 3.1 kB | 15 kB | 50/226 kBProgress (3): 3.1 kB | 15 kB | 51/226 kBProgress (3): 3.1 kB | 15 kB | 53/226 kBProgress (3): 3.1 kB | 15 kB | 54/226 kBProgress (3): 3.1 kB | 15 kB | 56/226 kBProgress (3): 3.1 kB | 15 kB | 60/226 kBProgress (4): 3.1 kB | 15 kB | 60/226 kB | 0.9/19 kBProgress (4): 3.1 kB | 15 kB | 60/226 kB | 2.3/19 kBProgress (4): 3.1 kB | 15 kB | 60/226 kB | 3.6/19 kBProgress (4): 3.1 kB | 15 kB | 60/226 kB | 5.0/19 kBProgress (4): 3.1 kB | 15 kB | 60/226 kB | 6.4/19 kBProgress (4): 3.1 kB | 15 kB | 60/226 kB | 7.7/19 kBProgress (4): 3.1 kB | 15 kB | 60/226 kB | 9.1/19 kBProgress (4): 3.1 kB | 15 kB | 60/226 kB | 10/19 kB Progress (4): 3.1 kB | 15 kB | 60/226 kB | 12/19 kBProgress (4): 3.1 kB | 15 kB | 60/226 kB | 13/19 kBProgress (4): 3.1 kB | 15 kB | 60/226 kB | 15/19 kBProgress (4): 3.1 kB | 15 kB | 60/226 kB | 16/19 kBProgress (4): 3.1 kB | 15 kB | 60/226 kB | 17/19 kBProgress (4): 3.1 kB | 15 kB | 60/226 kB | 18/19 kBProgress (4): 3.1 kB | 15 kB | 60/226 kB | 19 kB   Progress (5): 3.1 kB | 15 kB | 60/226 kB | 19 kB | 1.4/163 kBProgress (5): 3.1 kB | 15 kB | 60/226 kB | 19 kB | 2.7/163 kBProgress (5): 3.1 kB | 15 kB | 64/226 kB | 19 kB | 2.7/163 kBProgress (5): 3.1 kB | 15 kB | 64/226 kB | 19 kB | 4.1/163 kBProgress (5): 3.1 kB | 15 kB | 64/226 kB | 19 kB | 5.5/163 kBProgress (5): 3.1 kB | 15 kB | 64/226 kB | 19 kB | 6.8/163 kBProgress (5): 3.1 kB | 15 kB | 64/226 kB | 19 kB | 8.2/163 kBProgress (5): 3.1 kB | 15 kB | 64/226 kB | 19 kB | 9.6/163 kBProgress (5): 3.1 kB | 15 kB | 64/226 kB | 19 kB | 11/163 kB Progress (5): 3.1 kB | 15 kB | 64/226 kB | 19 kB | 12/163 kBProgress (5): 3.1 kB | 15 kB | 64/226 kB | 19 kB | 14/163 kBProgress (5): 3.1 kB | 15 kB | 64/226 kB | 19 kB | 15/163 kBProgress (5): 3.1 kB | 15 kB | 64/226 kB | 19 kB | 16/163 kBProgress (5): 3.1 kB | 15 kB | 64/226 kB | 19 kB | 18/163 kBProgress (5): 3.1 kB | 15 kB | 64/226 kB | 19 kB | 19/163 kBProgress (5): 3.1 kB | 15 kB | 64/226 kB | 19 kB | 21/163 kBProgress (5): 3.1 kB | 15 kB | 64/226 kB | 19 kB | 22/163 kBProgress (5): 3.1 kB | 15 kB | 64/226 kB | 19 kB | 23/163 kBProgress (5): 3.1 kB | 15 kB | 64/226 kB | 19 kB | 25/163 kBProgress (5): 3.1 kB | 15 kB | 64/226 kB | 19 kB | 26/163 kBProgress (5): 3.1 kB | 15 kB | 64/226 kB | 19 kB | 27/163 kBProgress (5): 3.1 kB | 15 kB | 64/226 kB | 19 kB | 29/163 kBProgress (5): 3.1 kB | 15 kB | 64/226 kB | 19 kB | 30/163 kBProgress (5): 3.1 kB | 15 kB | 64/226 kB | 19 kB | 31/163 kBProgress (5): 3.1 kB | 15 kB | 64/226 kB | 19 kB | 33/163 kBProgress (5): 3.1 kB | 15 kB | 64/226 kB | 19 kB | 34/163 kBProgress (5): 3.1 kB | 15 kB | 64/226 kB | 19 kB | 36/163 kBProgress (5): 3.1 kB | 15 kB | 64/226 kB | 19 kB | 37/163 kBProgress (5): 3.1 kB | 15 kB | 64/226 kB | 19 kB | 38/163 kBProgress (5): 3.1 kB | 15 kB | 64/226 kB | 19 kB | 40/163 kBProgress (5): 3.1 kB | 15 kB | 68/226 kB | 19 kB | 40/163 kBProgress (5): 3.1 kB | 15 kB | 68/226 kB | 19 kB | 41/163 kBProgress (5): 3.1 kB | 15 kB | 68/226 kB | 19 kB | 42/163 kBProgress (5): 3.1 kB | 15 kB | 68/226 kB | 19 kB | 44/163 kBProgress (5): 3.1 kB | 15 kB | 68/226 kB | 19 kB | 45/163 kBProgress (5): 3.1 kB | 15 kB | 73/226 kB | 19 kB | 45/163 kBProgress (5): 3.1 kB | 15 kB | 73/226 kB | 19 kB | 46/163 kBProgress (5): 3.1 kB | 15 kB | 73/226 kB | 19 kB | 48/163 kBProgress (5): 3.1 kB | 15 kB | 77/226 kB | 19 kB | 48/163 kBProgress (5): 3.1 kB | 15 kB | 77/226 kB | 19 kB | 49/163 kBProgress (5): 3.1 kB | 15 kB | 77/226 kB | 19 kB | 51/163 kBProgress (5): 3.1 kB | 15 kB | 77/226 kB | 19 kB | 52/163 kBProgress (5): 3.1 kB | 15 kB | 77/226 kB | 19 kB | 53/163 kBProgress (5): 3.1 kB | 15 kB | 77/226 kB | 19 kB | 55/163 kBProgress (5): 3.1 kB | 15 kB | 81/226 kB | 19 kB | 55/163 kBProgress (5): 3.1 kB | 15 kB | 81/226 kB | 19 kB | 59/163 kBProgress (5): 3.1 kB | 15 kB | 81/226 kB | 19 kB | 63/163 kBProgress (5): 3.1 kB | 15 kB | 85/226 kB | 19 kB | 63/163 kBProgress (5): 3.1 kB | 15 kB | 89/226 kB | 19 kB | 63/163 kBProgress (5): 3.1 kB | 15 kB | 94/226 kB | 19 kB | 63/163 kBProgress (5): 3.1 kB | 15 kB | 98/226 kB | 19 kB | 63/163 kBProgress (5): 3.1 kB | 15 kB | 102/226 kB | 19 kB | 63/163 kBProgress (5): 3.1 kB | 15 kB | 106/226 kB | 19 kB | 63/163 kBProgress (5): 3.1 kB | 15 kB | 111/226 kB | 19 kB | 63/163 kBProgress (5): 3.1 kB | 15 kB | 115/226 kB | 19 kB | 63/163 kBProgress (5): 3.1 kB | 15 kB | 119/226 kB | 19 kB | 63/163 kBProgress (5): 3.1 kB | 15 kB | 123/226 kB | 19 kB | 63/163 kBProgress (5): 3.1 kB | 15 kB | 127/226 kB | 19 kB | 63/163 kBProgress (5): 3.1 kB | 15 kB | 127/226 kB | 19 kB | 66/163 kBProgress (5): 3.1 kB | 15 kB | 132/226 kB | 19 kB | 66/163 kBProgress (5): 3.1 kB | 15 kB | 136/226 kB | 19 kB | 66/163 kBProgress (5): 3.1 kB | 15 kB | 136/226 kB | 19 kB | 70/163 kBProgress (5): 3.1 kB | 15 kB | 140/226 kB | 19 kB | 70/163 kBProgress (5): 3.1 kB | 15 kB | 140/226 kB | 19 kB | 74/163 kBProgress (5): 3.1 kB | 15 kB | 140/226 kB | 19 kB | 78/163 kBProgress (5): 3.1 kB | 15 kB | 140/226 kB | 19 kB | 82/163 kB                                                             Downloaded from central-secure: https://repo.maven.apache.org/maven2/org/springframework/cloud/spring-cloud-function-core/4.1.0/spring-cloud-function-core-4.1.0.jar (3.1 kB at 25 kB/s)
+Downloading from central-secure: https://repo.maven.apache.org/maven2/org/antlr/antlr-runtime/3.3/antlr-runtime-3.3.jar
+Progress (4): 15 kB | 140/226 kB | 19 kB | 87/163 kBProgress (4): 15 kB | 144/226 kB | 19 kB | 87/163 kBProgress (4): 15 kB | 144/226 kB | 19 kB | 91/163 kBProgress (4): 15 kB | 149/226 kB | 19 kB | 91/163 kBProgress (4): 15 kB | 149/226 kB | 19 kB | 95/163 kBProgress (4): 15 kB | 153/226 kB | 19 kB | 95/163 kBProgress (4): 15 kB | 155/226 kB | 19 kB | 95/163 kBProgress (4): 15 kB | 159/226 kB | 19 kB | 95/163 kBProgress (4): 15 kB | 159/226 kB | 19 kB | 98/163 kBProgress (4): 15 kB | 159/226 kB | 19 kB | 103/163 kBProgress (4): 15 kB | 164/226 kB | 19 kB | 103/163 kBProgress (4): 15 kB | 164/226 kB | 19 kB | 107/163 kBProgress (4): 15 kB | 164/226 kB | 19 kB | 111/163 kBProgress (4): 15 kB | 168/226 kB | 19 kB | 111/163 kBProgress (4): 15 kB | 168/226 kB | 19 kB | 115/163 kBProgress (4): 15 kB | 168/226 kB | 19 kB | 119/163 kBProgress (4): 15 kB | 172/226 kB | 19 kB | 119/163 kBProgress (4): 15 kB | 176/226 kB | 19 kB | 119/163 kBProgress (4): 15 kB | 181/226 kB | 19 kB | 119/163 kBProgress (4): 15 kB | 185/226 kB | 19 kB | 119/163 kBProgress (4): 15 kB | 185/226 kB | 19 kB | 124/163 kBProgress (4): 15 kB | 189/226 kB | 19 kB | 124/163 kBProgress (4): 15 kB | 189/226 kB | 19 kB | 128/163 kBProgress (4): 15 kB | 193/226 kB | 19 kB | 128/163 kBProgress (4): 15 kB | 197/226 kB | 19 kB | 128/163 kBProgress (4): 15 kB | 202/226 kB | 19 kB | 128/163 kBProgress (4): 15 kB | 206/226 kB | 19 kB | 128/163 kBProgress (4): 15 kB | 210/226 kB | 19 kB | 128/163 kBProgress (4): 15 kB | 214/226 kB | 19 kB | 128/163 kBProgress (4): 15 kB | 219/226 kB | 19 kB | 128/163 kBProgress (4): 15 kB | 223/226 kB | 19 kB | 128/163 kBProgress (4): 15 kB | 226 kB | 19 kB | 128/163 kB    Progress (4): 15 kB | 226 kB | 19 kB | 132/163 kBProgress (4): 15 kB | 226 kB | 19 kB | 136/163 kBProgress (4): 15 kB | 226 kB | 19 kB | 141/163 kBProgress (4): 15 kB | 226 kB | 19 kB | 145/163 kBProgress (4): 15 kB | 226 kB | 19 kB | 149/163 kBProgress (4): 15 kB | 226 kB | 19 kB | 153/163 kBProgress (4): 15 kB | 226 kB | 19 kB | 158/163 kBProgress (4): 15 kB | 226 kB | 19 kB | 162/163 kBProgress (4): 15 kB | 226 kB | 19 kB | 163 kB    Progress (5): 15 kB | 226 kB | 19 kB | 163 kB | 0.9/164 kBProgress (5): 15 kB | 226 kB | 19 kB | 163 kB | 2.3/164 kBProgress (5): 15 kB | 226 kB | 19 kB | 163 kB | 3.6/164 kBProgress (5): 15 kB | 226 kB | 19 kB | 163 kB | 5.0/164 kBProgress (5): 15 kB | 226 kB | 19 kB | 163 kB | 6.4/164 kBProgress (5): 15 kB | 226 kB | 19 kB | 163 kB | 7.7/164 kBProgress (5): 15 kB | 226 kB | 19 kB | 163 kB | 9.1/164 kBProgress (5): 15 kB | 226 kB | 19 kB | 163 kB | 10/164 kB Progress (5): 15 kB | 226 kB | 19 kB | 163 kB | 12/164 kBProgress (5): 15 kB | 226 kB | 19 kB | 163 kB | 13/164 kBProgress (5): 15 kB | 226 kB | 19 kB | 163 kB | 15/164 kBProgress (5): 15 kB | 226 kB | 19 kB | 163 kB | 16/164 kBProgress (5): 15 kB | 226 kB | 19 kB | 163 kB | 17/164 kBProgress (5): 15 kB | 226 kB | 19 kB | 163 kB | 19/164 kBProgress (5): 15 kB | 226 kB | 19 kB | 163 kB | 20/164 kBProgress (5): 15 kB | 226 kB | 19 kB | 163 kB | 21/164 kBProgress (5): 15 kB | 226 kB | 19 kB | 163 kB | 23/164 kBProgress (5): 15 kB | 226 kB | 19 kB | 163 kB | 24/164 kBProgress (5): 15 kB | 226 kB | 19 kB | 163 kB | 25/164 kBProgress (5): 15 kB | 226 kB | 19 kB | 163 kB | 27/164 kBProgress (5): 15 kB | 226 kB | 19 kB | 163 kB | 28/164 kBProgress (5): 15 kB | 226 kB | 19 kB | 163 kB | 30/164 kBProgress (5): 15 kB | 226 kB | 19 kB | 163 kB | 31/164 kBProgress (5): 15 kB | 226 kB | 19 kB | 163 kB | 32/164 kBProgress (5): 15 kB | 226 kB | 19 kB | 163 kB | 34/164 kBProgress (5): 15 kB | 226 kB | 19 kB | 163 kB | 35/164 kBProgress (5): 15 kB | 226 kB | 19 kB | 163 kB | 39/164 kBProgress (5): 15 kB | 226 kB | 19 kB | 163 kB | 44/164 kBProgress (5): 15 kB | 226 kB | 19 kB | 163 kB | 48/164 kBProgress (5): 15 kB | 226 kB | 19 kB | 163 kB | 52/164 kBProgress (5): 15 kB | 226 kB | 19 kB | 163 kB | 56/164 kBProgress (5): 15 kB | 226 kB | 19 kB | 163 kB | 60/164 kB                                                         Downloaded from central-secure: https://repo.maven.apache.org/maven2/org/antlr/stringtemplate/4.0.2/stringtemplate-4.0.2.jar (226 kB at 1.3 MB/s)
+Downloading from central-secure: https://repo.maven.apache.org/maven2/org/antlr/antlr4-runtime/4.13.1/antlr4-runtime-4.13.1.jar
+Progress (4): 15 kB | 19 kB | 163 kB | 65/164 kBProgress (4): 15 kB | 19 kB | 163 kB | 69/164 kBProgress (4): 15 kB | 19 kB | 163 kB | 73/164 kBProgress (4): 15 kB | 19 kB | 163 kB | 77/164 kBProgress (4): 15 kB | 19 kB | 163 kB | 82/164 kBProgress (4): 15 kB | 19 kB | 163 kB | 86/164 kBProgress (4): 15 kB | 19 kB | 163 kB | 90/164 kBProgress (4): 15 kB | 19 kB | 163 kB | 94/164 kBProgress (4): 15 kB | 19 kB | 163 kB | 98/164 kBProgress (4): 15 kB | 19 kB | 163 kB | 103/164 kBProgress (4): 15 kB | 19 kB | 163 kB | 107/164 kBProgress (4): 15 kB | 19 kB | 163 kB | 111/164 kBProgress (4): 15 kB | 19 kB | 163 kB | 115/164 kB                                                 Downloaded from central-secure: https://repo.maven.apache.org/maven2/org/springframework/cloud/spring-cloud-function-context/4.1.0/spring-cloud-function-context-4.1.0.jar (163 kB at 871 kB/s)
+Downloading from central-secure: https://repo.maven.apache.org/maven2/com/knuddels/jtokkit/1.0.0/jtokkit-1.0.0.jar
+Progress (3): 15 kB | 19 kB | 120/164 kBProgress (3): 15 kB | 19 kB | 124/164 kBProgress (3): 15 kB | 19 kB | 128/164 kBProgress (3): 15 kB | 19 kB | 132/164 kBProgress (3): 15 kB | 19 kB | 137/164 kBProgress (3): 15 kB | 19 kB | 141/164 kBProgress (3): 15 kB | 19 kB | 145/164 kBProgress (3): 15 kB | 19 kB | 149/164 kBProgress (3): 15 kB | 19 kB | 153/164 kBProgress (3): 15 kB | 19 kB | 155/164 kBProgress (3): 15 kB | 19 kB | 159/164 kBProgress (3): 15 kB | 19 kB | 164/164 kBProgress (3): 15 kB | 19 kB | 164 kB    Progress (4): 15 kB | 19 kB | 164 kB | 3.8/326 kBProgress (4): 15 kB | 19 kB | 164 kB | 8.0/326 kBProgress (4): 15 kB | 19 kB | 164 kB | 12/326 kB Progress (4): 15 kB | 19 kB | 164 kB | 16/326 kBProgress (4): 15 kB | 19 kB | 164 kB | 21/326 kBProgress (4): 15 kB | 19 kB | 164 kB | 25/326 kBProgress (5): 15 kB | 19 kB | 164 kB | 25/326 kB | 0/1.6 MBProgress (5): 15 kB | 19 kB | 164 kB | 25/326 kB | 0/1.6 MBProgress (5): 15 kB | 19 kB | 164 kB | 29/326 kB | 0/1.6 MBProgress (5): 15 kB | 19 kB | 164 kB | 33/326 kB | 0/1.6 MBProgress (5): 15 kB | 19 kB | 164 kB | 33/326 kB | 0/1.6 MBProgress (5): 15 kB | 19 kB | 164 kB | 38/326 kB | 0/1.6 MBProgress (5): 15 kB | 19 kB | 164 kB | 42/326 kB | 0/1.6 MBProgress (5): 15 kB | 19 kB | 164 kB | 46/326 kB | 0/1.6 MBProgress (5): 15 kB | 19 kB | 164 kB | 46/326 kB | 0/1.6 MBProgress (5): 15 kB | 19 kB | 164 kB | 50/326 kB | 0/1.6 MBProgress (5): 15 kB | 19 kB | 164 kB | 54/326 kB | 0/1.6 MBProgress (5): 15 kB | 19 kB | 164 kB | 54/326 kB | 0.1/1.6 MBProgress (5): 15 kB | 19 kB | 164 kB | 54/326 kB | 0.1/1.6 MBProgress (5): 15 kB | 19 kB | 164 kB | 71/326 kB | 0.1/1.6 MBProgress (5): 15 kB | 19 kB | 164 kB | 71/326 kB | 0.1/1.6 MBProgress (5): 15 kB | 19 kB | 164 kB | 87/326 kB | 0.1/1.6 MBProgress (5): 15 kB | 19 kB | 164 kB | 104/326 kB | 0.1/1.6 MBProgress (5): 15 kB | 19 kB | 164 kB | 104/326 kB | 0.1/1.6 MBProgress (5): 15 kB | 19 kB | 164 kB | 120/326 kB | 0.1/1.6 MBProgress (5): 15 kB | 19 kB | 164 kB | 120/326 kB | 0.1/1.6 MB                                                              Downloaded from central-secure: https://repo.maven.apache.org/maven2/org/antlr/antlr-runtime/3.3/antlr-runtime-3.3.jar (164 kB at 727 kB/s)
+Downloading from central-secure: https://repo.maven.apache.org/maven2/com/github/victools/jsonschema-generator/4.31.1/jsonschema-generator-4.31.1.jar
+Progress (4): 15 kB | 19 kB | 131/326 kB | 0.1/1.6 MBProgress (4): 15 kB | 19 kB | 131/326 kB | 0.1/1.6 MBProgress (4): 15 kB | 19 kB | 131/326 kB | 0.2/1.6 MBProgress (4): 15 kB | 19 kB | 147/326 kB | 0.2/1.6 MBProgress (4): 15 kB | 19 kB | 147/326 kB | 0.2/1.6 MBProgress (4): 15 kB | 19 kB | 163/326 kB | 0.2/1.6 MBProgress (4): 15 kB | 19 kB | 163/326 kB | 0.2/1.6 MBProgress (4): 15 kB | 19 kB | 180/326 kB | 0.2/1.6 MBProgress (4): 15 kB | 19 kB | 180/326 kB | 0.2/1.6 MBProgress (4): 15 kB | 19 kB | 196/326 kB | 0.2/1.6 MBProgress (4): 15 kB | 19 kB | 196/326 kB | 0.2/1.6 MBProgress (4): 15 kB | 19 kB | 212/326 kB | 0.2/1.6 MBProgress (4): 15 kB | 19 kB | 229/326 kB | 0.2/1.6 MBProgress (4): 15 kB | 19 kB | 245/326 kB | 0.2/1.6 MBProgress (4): 15 kB | 19 kB | 262/326 kB | 0.2/1.6 MBProgress (4): 15 kB | 19 kB | 262/326 kB | 0.2/1.6 MBProgress (4): 15 kB | 19 kB | 278/326 kB | 0.2/1.6 MBProgress (4): 15 kB | 19 kB | 278/326 kB | 0.2/1.6 MBProgress (4): 15 kB | 19 kB | 294/326 kB | 0.2/1.6 MBProgress (4): 15 kB | 19 kB | 294/326 kB | 0.3/1.6 MBProgress (4): 15 kB | 19 kB | 294/326 kB | 0.3/1.6 MBProgress (4): 15 kB | 19 kB | 311/326 kB | 0.3/1.6 MBProgress (4): 15 kB | 19 kB | 311/326 kB | 0.3/1.6 MBProgress (4): 15 kB | 19 kB | 326 kB | 0.3/1.6 MB    Progress (4): 15 kB | 19 kB | 326 kB | 0.3/1.6 MBProgress (4): 15 kB | 19 kB | 326 kB | 0.3/1.6 MBProgress (4): 15 kB | 19 kB | 326 kB | 0.3/1.6 MBProgress (4): 15 kB | 19 kB | 326 kB | 0.4/1.6 MBProgress (4): 15 kB | 19 kB | 326 kB | 0.4/1.6 MBProgress (4): 15 kB | 19 kB | 326 kB | 0.4/1.6 MBProgress (4): 15 kB | 19 kB | 326 kB | 0.4/1.6 MBProgress (4): 15 kB | 19 kB | 326 kB | 0.4/1.6 MBProgress (4): 15 kB | 19 kB | 326 kB | 0.4/1.6 MBProgress (4): 15 kB | 19 kB | 326 kB | 0.5/1.6 MBProgress (4): 15 kB | 19 kB | 326 kB | 0.5/1.6 MBProgress (4): 15 kB | 19 kB | 326 kB | 0.5/1.6 MBProgress (4): 15 kB | 19 kB | 326 kB | 0.5/1.6 MBProgress (4): 15 kB | 19 kB | 326 kB | 0.5/1.6 MBProgress (4): 15 kB | 19 kB | 326 kB | 0.5/1.6 MBProgress (4): 15 kB | 19 kB | 326 kB | 0.6/1.6 MBProgress (5): 15 kB | 19 kB | 326 kB | 0.6/1.6 MB | 4.2/144 kBProgress (5): 15 kB | 19 kB | 326 kB | 0.6/1.6 MB | 8.2/144 kBProgress (5): 15 kB | 19 kB | 326 kB | 0.6/1.6 MB | 12/144 kB Progress (5): 15 kB | 19 kB | 326 kB | 0.6/1.6 MB | 17/144 kBProgress (5): 15 kB | 19 kB | 326 kB | 0.6/1.6 MB | 21/144 kBProgress (5): 15 kB | 19 kB | 326 kB | 0.6/1.6 MB | 25/144 kBProgress (5): 15 kB | 19 kB | 326 kB | 0.6/1.6 MB | 29/144 kBProgress (5): 15 kB | 19 kB | 326 kB | 0.6/1.6 MB | 46/144 kBProgress (5): 15 kB | 19 kB | 326 kB | 0.6/1.6 MB | 57/144 kBProgress (5): 15 kB | 19 kB | 326 kB | 0.6/1.6 MB | 74/144 kBProgress (5): 15 kB | 19 kB | 326 kB | 0.6/1.6 MB | 90/144 kBProgress (5): 15 kB | 19 kB | 326 kB | 0.6/1.6 MB | 106/144 kBProgress (5): 15 kB | 19 kB | 326 kB | 0.6/1.6 MB | 123/144 kBProgress (5): 15 kB | 19 kB | 326 kB | 0.6/1.6 MB | 123/144 kBProgress (5): 15 kB | 19 kB | 326 kB | 0.6/1.6 MB | 123/144 kBProgress (5): 15 kB | 19 kB | 326 kB | 0.6/1.6 MB | 123/144 kBProgress (5): 15 kB | 19 kB | 326 kB | 0.6/1.6 MB | 123/144 kBProgress (5): 15 kB | 19 kB | 326 kB | 0.6/1.6 MB | 123/144 kBProgress (5): 15 kB | 19 kB | 326 kB | 0.7/1.6 MB | 123/144 kBProgress (5): 15 kB | 19 kB | 326 kB | 0.7/1.6 MB | 123/144 kBProgress (5): 15 kB | 19 kB | 326 kB | 0.7/1.6 MB | 123/144 kBProgress (5): 15 kB | 19 kB | 326 kB | 0.7/1.6 MB | 139/144 kBProgress (5): 15 kB | 19 kB | 326 kB | 0.7/1.6 MB | 144 kB    Progress (5): 15 kB | 19 kB | 326 kB | 0.7/1.6 MB | 144 kBProgress (5): 15 kB | 19 kB | 326 kB | 0.7/1.6 MB | 144 kBProgress (5): 15 kB | 19 kB | 326 kB | 0.7/1.6 MB | 144 kBProgress (5): 15 kB | 19 kB | 326 kB | 0.8/1.6 MB | 144 kBProgress (5): 15 kB | 19 kB | 326 kB | 0.8/1.6 MB | 144 kBProgress (5): 15 kB | 19 kB | 326 kB | 0.8/1.6 MB | 144 kBProgress (5): 15 kB | 19 kB | 326 kB | 0.8/1.6 MB | 144 kBProgress (5): 15 kB | 19 kB | 326 kB | 0.8/1.6 MB | 144 kBProgress (5): 15 kB | 19 kB | 326 kB | 0.8/1.6 MB | 144 kBProgress (5): 15 kB | 19 kB | 326 kB | 0.9/1.6 MB | 144 kBProgress (5): 15 kB | 19 kB | 326 kB | 0.9/1.6 MB | 144 kBProgress (5): 15 kB | 19 kB | 326 kB | 0.9/1.6 MB | 144 kBProgress (5): 15 kB | 19 kB | 326 kB | 0.9/1.6 MB | 144 kBProgress (5): 15 kB | 19 kB | 326 kB | 0.9/1.6 MB | 144 kBProgress (5): 15 kB | 19 kB | 326 kB | 0.9/1.6 MB | 144 kBProgress (5): 15 kB | 19 kB | 326 kB | 1.0/1.6 MB | 144 kBProgress (5): 15 kB | 19 kB | 326 kB | 1.0/1.6 MB | 144 kBProgress (5): 15 kB | 19 kB | 326 kB | 1.0/1.6 MB | 144 kBProgress (5): 15 kB | 19 kB | 326 kB | 1.0/1.6 MB | 144 kBProgress (5): 15 kB | 19 kB | 326 kB | 1.0/1.6 MB | 144 kBProgress (5): 15 kB | 19 kB | 326 kB | 1.0/1.6 MB | 144 kBProgress (5): 15 kB | 19 kB | 326 kB | 1.0/1.6 MB | 144 kBProgress (5): 15 kB | 19 kB | 326 kB | 1.1/1.6 MB | 144 kBProgress (5): 15 kB | 19 kB | 326 kB | 1.1/1.6 MB | 144 kBProgress (5): 15 kB | 19 kB | 326 kB | 1.1/1.6 MB | 144 kBProgress (5): 15 kB | 19 kB | 326 kB | 1.1/1.6 MB | 144 kBProgress (5): 15 kB | 19 kB | 326 kB | 1.1/1.6 MB | 144 kBProgress (5): 15 kB | 19 kB | 326 kB | 1.1/1.6 MB | 144 kBProgress (5): 15 kB | 19 kB | 326 kB | 1.2/1.6 MB | 144 kBProgress (5): 15 kB | 19 kB | 326 kB | 1.2/1.6 MB | 144 kBProgress (5): 15 kB | 19 kB | 326 kB | 1.2/1.6 MB | 144 kBProgress (5): 15 kB | 19 kB | 326 kB | 1.2/1.6 MB | 144 kBProgress (5): 15 kB | 19 kB | 326 kB | 1.2/1.6 MB | 144 kBProgress (5): 15 kB | 19 kB | 326 kB | 1.2/1.6 MB | 144 kBProgress (5): 15 kB | 19 kB | 326 kB | 1.3/1.6 MB | 144 kBProgress (5): 15 kB | 19 kB | 326 kB | 1.3/1.6 MB | 144 kBProgress (5): 15 kB | 19 kB | 326 kB | 1.3/1.6 MB | 144 kB                                                          Downloaded from central-secure: https://repo.maven.apache.org/maven2/org/antlr/antlr4-runtime/4.13.1/antlr4-runtime-4.13.1.jar (326 kB at 1.1 MB/s)
+Downloading from central-secure: https://repo.maven.apache.org/maven2/com/github/victools/jsonschema-module-jackson/4.31.1/jsonschema-module-jackson-4.31.1.jar
+Progress (4): 15 kB | 19 kB | 1.3/1.6 MB | 144 kBProgress (4): 15 kB | 19 kB | 1.3/1.6 MB | 144 kBProgress (4): 15 kB | 19 kB | 1.3/1.6 MB | 144 kBProgress (4): 15 kB | 19 kB | 1.4/1.6 MB | 144 kBProgress (4): 15 kB | 19 kB | 1.4/1.6 MB | 144 kBProgress (4): 15 kB | 19 kB | 1.4/1.6 MB | 144 kBProgress (4): 15 kB | 19 kB | 1.4/1.6 MB | 144 kBProgress (4): 15 kB | 19 kB | 1.4/1.6 MB | 144 kBProgress (4): 15 kB | 19 kB | 1.4/1.6 MB | 144 kBProgress (4): 15 kB | 19 kB | 1.5/1.6 MB | 144 kBProgress (4): 15 kB | 19 kB | 1.5/1.6 MB | 144 kBProgress (4): 15 kB | 19 kB | 1.5/1.6 MB | 144 kBProgress (4): 15 kB | 19 kB | 1.5/1.6 MB | 144 kBProgress (4): 15 kB | 19 kB | 1.5/1.6 MB | 144 kBProgress (4): 15 kB | 19 kB | 1.5/1.6 MB | 144 kBProgress (4): 15 kB | 19 kB | 1.5/1.6 MB | 144 kBProgress (4): 15 kB | 19 kB | 1.5/1.6 MB | 144 kBProgress (4): 15 kB | 19 kB | 1.6 MB | 144 kB                                                 Downloaded from central-secure: https://repo.maven.apache.org/maven2/com/github/victools/jsonschema-generator/4.31.1/jsonschema-generator-4.31.1.jar (144 kB at 456 kB/s)
+Downloaded from central-secure: https://repo.maven.apache.org/maven2/com/github/victools/jsonschema-module-swagger-2/4.33.1/jsonschema-module-swagger-2-4.33.1.jar (19 kB at 58 kB/s)
+Progress (3): 15 kB | 1.6 MB | 7.7/28 kBProgress (3): 15 kB | 1.6 MB | 16/28 kB Progress (3): 15 kB | 1.6 MB | 28 kB                                       Downloaded from central-secure: https://repo.maven.apache.org/maven2/net/jodah/typetools/0.6.2/typetools-0.6.2.jar (15 kB at 44 kB/s)
+Downloaded from central-secure: https://repo.maven.apache.org/maven2/com/knuddels/jtokkit/1.0.0/jtokkit-1.0.0.jar (1.6 MB at 4.3 MB/s)
+Downloaded from central-secure: https://repo.maven.apache.org/maven2/com/github/victools/jsonschema-module-jackson/4.31.1/jsonschema-module-jackson-4.31.1.jar (28 kB at 47 kB/s)
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ assetmind-ai ---
+[INFO] skip non existing resourceDirectory C:\Users\nicholas.mathias\IdeaProjects\assetmind\assetmind\assetmind-ai\src\main\resources
+[INFO] skip non existing resourceDirectory C:\Users\nicholas.mathias\IdeaProjects\assetmind\assetmind\assetmind-ai\src\main\resources
+[INFO] 
+[INFO] --- compiler:3.11.0:compile (default-compile) @ assetmind-ai ---
+[INFO] Changes detected - recompiling the module! :dependency
+[INFO] Compiling 2 source files with javac [debug release 21] to target\classes
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ assetmind-ai ---
+[INFO] skip non existing resourceDirectory C:\Users\nicholas.mathias\IdeaProjects\assetmind\assetmind\assetmind-ai\src\test\resources
+[INFO] 
+[INFO] --- compiler:3.11.0:testCompile (default-testCompile) @ assetmind-ai ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- surefire:3.1.2:test (default-test) @ assetmind-ai ---
+[INFO] Tests are skipped.
+[INFO] 
+[INFO] --- jar:3.3.0:jar (default-jar) @ assetmind-ai ---
+[INFO] Building jar: C:\Users\nicholas.mathias\IdeaProjects\assetmind\assetmind\assetmind-ai\target\assetmind-ai-1.0.0.jar
+[INFO] 
+[INFO] --- install:3.1.1:install (default-install) @ assetmind-ai ---
+[INFO] Installing C:\Users\nicholas.mathias\IdeaProjects\assetmind\assetmind\assetmind-ai\pom.xml to C:\Users\nicholas.mathias\.m2\repository\com\assetmind\assetmind-ai\1.0.0\assetmind-ai-1.0.0.pom
+[INFO] Installing C:\Users\nicholas.mathias\IdeaProjects\assetmind\assetmind\assetmind-ai\target\assetmind-ai-1.0.0.jar to C:\Users\nicholas.mathias\.m2\repository\com\assetmind\assetmind-ai\1.0.0\assetmind-ai-1.0.0.jar
+[INFO] 
+[INFO] ---------------< com.assetmind:assetmind-infrastructure >---------------
+[INFO] Building assetmind-infrastructure 1.0.0                            [4/7]
+[INFO]   from assetmind-infrastructure\pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ assetmind-infrastructure ---
+[INFO] skip non existing resourceDirectory C:\Users\nicholas.mathias\IdeaProjects\assetmind\assetmind\assetmind-infrastructure\src\main\resources
+[INFO] skip non existing resourceDirectory C:\Users\nicholas.mathias\IdeaProjects\assetmind\assetmind\assetmind-infrastructure\src\main\resources
+[INFO] 
+[INFO] --- compiler:3.11.0:compile (default-compile) @ assetmind-infrastructure ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ assetmind-infrastructure ---
+[INFO] skip non existing resourceDirectory C:\Users\nicholas.mathias\IdeaProjects\assetmind\assetmind\assetmind-infrastructure\src\test\resources
+[INFO] 
+[INFO] --- compiler:3.11.0:testCompile (default-testCompile) @ assetmind-infrastructure ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- surefire:3.1.2:test (default-test) @ assetmind-infrastructure ---
+[INFO] Tests are skipped.
+[INFO] 
+[INFO] --- jar:3.3.0:jar (default-jar) @ assetmind-infrastructure ---
+[INFO] 
+[INFO] --- install:3.1.1:install (default-install) @ assetmind-infrastructure ---
+[INFO] Installing C:\Users\nicholas.mathias\IdeaProjects\assetmind\assetmind\assetmind-infrastructure\pom.xml to C:\Users\nicholas.mathias\.m2\repository\com\assetmind\assetmind-infrastructure\1.0.0\assetmind-infrastructure-1.0.0.pom
+[INFO] Installing C:\Users\nicholas.mathias\IdeaProjects\assetmind\assetmind\assetmind-infrastructure\target\assetmind-infrastructure-1.0.0.jar to C:\Users\nicholas.mathias\.m2\repository\com\assetmind\assetmind-infrastructure\1.0.0\assetmind-infrastructure-1.0.0.jar
+[INFO] 
+[INFO] --------------------< com.assetmind:assetmind-api >---------------------
+[INFO] Building assetmind-api 1.0.0                                       [5/7]
+[INFO]   from assetmind-api\pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ assetmind-api ---
+[INFO] skip non existing resourceDirectory C:\Users\nicholas.mathias\IdeaProjects\assetmind\assetmind\assetmind-api\src\main\resources
+[INFO] skip non existing resourceDirectory C:\Users\nicholas.mathias\IdeaProjects\assetmind\assetmind\assetmind-api\src\main\resources
+[INFO] 
+[INFO] --- compiler:3.11.0:compile (default-compile) @ assetmind-api ---
+[INFO] Changes detected - recompiling the module! :dependency
+[INFO] Compiling 14 source files with javac [debug release 21] to target\classes
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ assetmind-api ---
+[INFO] skip non existing resourceDirectory C:\Users\nicholas.mathias\IdeaProjects\assetmind\assetmind\assetmind-api\src\test\resources
+[INFO] 
+[INFO] --- compiler:3.11.0:testCompile (default-testCompile) @ assetmind-api ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- surefire:3.1.2:test (default-test) @ assetmind-api ---
+[INFO] Tests are skipped.
+[INFO] 
+[INFO] --- jar:3.3.0:jar (default-jar) @ assetmind-api ---
+[INFO] Building jar: C:\Users\nicholas.mathias\IdeaProjects\assetmind\assetmind\assetmind-api\target\assetmind-api-1.0.0.jar
+[INFO] 
+[INFO] --- install:3.1.1:install (default-install) @ assetmind-api ---
+[INFO] Installing C:\Users\nicholas.mathias\IdeaProjects\assetmind\assetmind\assetmind-api\pom.xml to C:\Users\nicholas.mathias\.m2\repository\com\assetmind\assetmind-api\1.0.0\assetmind-api-1.0.0.pom
+[INFO] Installing C:\Users\nicholas.mathias\IdeaProjects\assetmind\assetmind\assetmind-api\target\assetmind-api-1.0.0.jar to C:\Users\nicholas.mathias\.m2\repository\com\assetmind\assetmind-api\1.0.0\assetmind-api-1.0.0.jar
+[INFO] 
+[INFO] -------------------< com.assetmind:assetmind-batch >--------------------
+[INFO] Building assetmind-batch 1.0.0                                     [6/7]
+[INFO]   from assetmind-batch\pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ assetmind-batch ---
+[INFO] skip non existing resourceDirectory C:\Users\nicholas.mathias\IdeaProjects\assetmind\assetmind\assetmind-batch\src\main\resources
+[INFO] skip non existing resourceDirectory C:\Users\nicholas.mathias\IdeaProjects\assetmind\assetmind\assetmind-batch\src\main\resources
+[INFO] 
+[INFO] --- compiler:3.11.0:compile (default-compile) @ assetmind-batch ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ assetmind-batch ---
+[INFO] skip non existing resourceDirectory C:\Users\nicholas.mathias\IdeaProjects\assetmind\assetmind\assetmind-batch\src\test\resources
+[INFO] 
+[INFO] --- compiler:3.11.0:testCompile (default-testCompile) @ assetmind-batch ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- surefire:3.1.2:test (default-test) @ assetmind-batch ---
+[INFO] Tests are skipped.
+[INFO] 
+[INFO] --- jar:3.3.0:jar (default-jar) @ assetmind-batch ---
+[INFO] 
+[INFO] --- install:3.1.1:install (default-install) @ assetmind-batch ---
+[INFO] Installing C:\Users\nicholas.mathias\IdeaProjects\assetmind\assetmind\assetmind-batch\pom.xml to C:\Users\nicholas.mathias\.m2\repository\com\assetmind\assetmind-batch\1.0.0\assetmind-batch-1.0.0.pom
+[INFO] Installing C:\Users\nicholas.mathias\IdeaProjects\assetmind\assetmind\assetmind-batch\target\assetmind-batch-1.0.0.jar to C:\Users\nicholas.mathias\.m2\repository\com\assetmind\assetmind-batch\1.0.0\assetmind-batch-1.0.0.jar
+[INFO] 
+[INFO] ----------------< com.assetmind:assetmind-application >-----------------
+[INFO] Building assetmind-application 1.0.0                               [7/7]
+[INFO]   from assetmind-application\pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ assetmind-application ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] Copying 3 resources from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.11.0:compile (default-compile) @ assetmind-application ---
+[INFO] Changes detected - recompiling the module! :dependency
+[INFO] Compiling 1 source file with javac [debug release 21] to target\classes
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ assetmind-application ---
+[INFO] Copying 1 resource from src\test\resources to target\test-classes
+[INFO] 
+[INFO] --- compiler:3.11.0:testCompile (default-testCompile) @ assetmind-application ---
+[INFO] Changes detected - recompiling the module! :dependency
+[INFO] Compiling 2 source files with javac [debug release 21] to target\test-classes
+[INFO] 
+[INFO] --- surefire:3.1.2:test (default-test) @ assetmind-application ---
+[INFO] Tests are skipped.
+[INFO] 
+[INFO] --- jar:3.3.0:jar (default-jar) @ assetmind-application ---
+[INFO] Building jar: C:\Users\nicholas.mathias\IdeaProjects\assetmind\assetmind\assetmind-application\target\assetmind-application-1.0.0.jar
+[INFO] 
+[INFO] --- spring-boot:3.2.0:repackage (repackage) @ assetmind-application ---
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Summary for assetmind-parent 1.0.0:
+[INFO] 
+[INFO] assetmind-parent ................................... SUCCESS [  0.250 s]
+[INFO] assetmind-core ..................................... SUCCESS [  9.890 s]
+[INFO] assetmind-ai ....................................... SUCCESS [ 11.470 s]
+[INFO] assetmind-infrastructure ........................... SUCCESS [  0.801 s]
+[INFO] assetmind-api ...................................... SUCCESS [  9.698 s]
+[INFO] assetmind-batch .................................... SUCCESS [  0.229 s]
+[INFO] assetmind-application .............................. FAILURE [ 19.621 s]
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  52.364 s
+[INFO] Finished at: 2026-03-27T13:54:59-04:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.springframework.boot:spring-boot-maven-plugin:3.2.0:repackage (repackage) on project assetmind-application: Execution repackage of goal org.springframework.boot:spring-boot-maven-plugin:3.2.0:repackage failed: Unable to rename 'C:\Users\nicholas.mathias\IdeaProjects\assetmind\assetmind\assetmind-application\target\assetmind-application-1.0.0.jar' to 'C:\Users\nicholas.mathias\IdeaProjects\assetmind\assetmind\assetmind-application\target\assetmind-application-1.0.0.jar.original' -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/PluginExecutionException
+[ERROR] 
+[ERROR] After correcting the problems, you can resume the build with the command
+[ERROR]   mvn <args> -rf :assetmind-application

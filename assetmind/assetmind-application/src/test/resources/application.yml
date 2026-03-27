@@ -9,4 +9,8 @@ spring:
       ddl-auto: validate
   flyway:
     enabled: true
+  ai:
+    openai:
+      api-key: test-key
+      base-url: https://api.groq.com/openai
 

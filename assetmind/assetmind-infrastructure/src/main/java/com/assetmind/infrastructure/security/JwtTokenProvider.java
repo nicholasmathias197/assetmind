@@ -1,13 +1,17 @@
 package com.assetmind.infrastructure.security;
 
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import javax.crypto.SecretKey;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -15,21 +19,24 @@ import java.util.Map;
 @Service
 public class JwtTokenProvider {
 
+    private static final int HS512_MIN_KEY_BYTES = 64;
+
     private final SecretKey key;
     private final long accessTokenExpiration;
     private final long refreshTokenExpiration;
 
     public JwtTokenProvider(
-            @Value("${jwt.secret:assetmind-super-secret-key-min-32-chars-1234567890}") String secret,
+            @Value("${jwt.secret:assetmind-local-jwt-secret-for-hs512-development-only-change-this-before-production-2026}") String secret,
             @Value("${jwt.access-token-expiration:3600000}") long accessTokenExpiration,
             @Value("${jwt.refresh-token-expiration:86400000}") long refreshTokenExpiration) {
-        this.key = Keys.hmacShaKeyFor(secret.getBytes());
+        this.key = createSigningKey(secret);
         this.accessTokenExpiration = accessTokenExpiration;
         this.refreshTokenExpiration = refreshTokenExpiration;
     }
 
     public String generateAccessToken(String userId, String username, String role) {
         Map<String, Object> claims = new HashMap<>();
+        claims.put("username", username);
         claims.put("role", role);
         return createToken(claims, userId, accessTokenExpiration);
     }
@@ -61,7 +68,7 @@ public class JwtTokenProvider {
 
     public boolean validateToken(String token) {
         try {
-            Jwts.parser().setSigningKey(key).parseClaimsJws(token);
+            Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
             return true;
         } catch (Exception e) {
             return false;
@@ -69,7 +76,28 @@ public class JwtTokenProvider {
     }
 
     private Claims extractAllClaims(String token) {
-        return Jwts.parser().setSigningKey(key).parseClaimsJws(token).getBody();
+        return Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token).getBody();
+    }
+
+    private SecretKey createSigningKey(String secret) {
+        if (!StringUtils.hasText(secret)) {
+            throw new IllegalArgumentException("jwt.secret must not be blank");
+        }
+
+        byte[] keyBytes = secret.getBytes(StandardCharsets.UTF_8);
+        if (keyBytes.length < HS512_MIN_KEY_BYTES) {
+            keyBytes = sha512(keyBytes);
+        }
+
+        return Keys.hmacShaKeyFor(keyBytes);
+    }
+
+    private byte[] sha512(byte[] value) {
+        try {
+            return MessageDigest.getInstance("SHA-512").digest(value);
+        } catch (NoSuchAlgorithmException e) {
+            throw new IllegalStateException("SHA-512 algorithm is not available", e);
+        }
     }
 }
 

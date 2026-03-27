@@ -1,8 +1,8 @@
-package com.assetmind.api.dto;
+package com.assetmind.ai.model;
 
 import com.assetmind.core.domain.DepreciationMethod;
 
-public record TaxStrategyResponse(
+public record TaxStrategyRecommendation(
         DepreciationMethod recommendedMethod,
         double confidence,
         String rationale,

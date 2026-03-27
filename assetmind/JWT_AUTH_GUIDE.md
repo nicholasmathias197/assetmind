@@ -90,17 +90,19 @@ curl -X POST "http://localhost:8080/api/v1/auth/refresh" \
 Set environment variables to customize token expiration:
 
 ```bash
-export JWT_SECRET="your-super-secret-key-min-32-characters-12345"
+export JWT_SECRET="your-super-secret-key-for-hs512-must-be-at-least-64-characters-long-1234567890"
 export JWT_ACCESS_TOKEN_EXPIRATION=7200000
 export JWT_REFRESH_TOKEN_EXPIRATION=604800000
 ```
 
 Or set in `.env` file:
 ```
-JWT_SECRET=your-super-secret-key-min-32-characters-12345
+JWT_SECRET=your-super-secret-key-for-hs512-must-be-at-least-64-characters-long-1234567890
 JWT_ACCESS_TOKEN_EXPIRATION=7200000
 JWT_REFRESH_TOKEN_EXPIRATION=604800000
 ```
+
+> `HS512` requires a signing key that is at least 64 bytes long. For local development, AssetMind derives a compliant signing key from `JWT_SECRET` automatically, but production deployments should still provide a strong 64+ character secret.
 
 ## Secured Endpoints
 

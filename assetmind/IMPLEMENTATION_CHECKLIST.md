@@ -234,6 +234,9 @@
 - ✅ IMPLEMENTATION_NOTES.md (design decisions + rationale)
 - ✅ COMPLETE_IMPLEMENTATION_SUMMARY.md (this document)
 - ✅ .env.example (configuration template)
+- ✅ Postman local collection/environment exports
+- ✅ Newman checklist runner (`run-postman-checklist.sh`)
+- ✅ CI-friendly Newman JUnit report mode (`--reporter-junit`)
 
 ---
 
