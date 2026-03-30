@@ -478,6 +478,75 @@
       ]
     },
     {
+      "name": "Breakout",
+      "item": [
+        {
+          "name": "1 - Suggest Breakout (commercial property)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"documentText\": \"Purchase of 3-story commercial office building at 500 Main St including HVAC system, electrical, plumbing, roof, parking lot, and landscaping. Total acquisition cost $2,500,000.\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/breakout/suggest",
+              "host": ["{{baseUrl}}"],
+              "path": ["api","v1","breakout","suggest"]
+            }
+          }
+        },
+        {
+          "name": "2 - Suggest Breakout (office build-out)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"documentText\": \"Office renovation and tenant improvement for floors 3-4. Includes interior walls, framing, new flooring, electrical and lighting upgrades, HVAC modifications, furniture, and IT network cabling.\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/breakout/suggest",
+              "host": ["{{baseUrl}}"],
+              "path": ["api","v1","breakout","suggest"]
+            }
+          }
+        },
+        {
+          "name": "3 - Suggest Breakout (data center)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"documentText\": \"New data center buildout: 20 rack servers, networking switches, UPS battery backup, cooling system, structured cabling, and server enclosures.\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/breakout/suggest",
+              "host": ["{{baseUrl}}"],
+              "path": ["api","v1","breakout","suggest"]
+            }
+          }
+        },
+        {
+          "name": "4 - Suggest Breakout (fleet vehicle)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"documentText\": \"Purchase of delivery fleet: 5 Ford Transit vans with GPS telematics, custom cargo upfit, and company branding/signage.\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/breakout/suggest",
+              "host": ["{{baseUrl}}"],
+              "path": ["api","v1","breakout","suggest"]
+            }
+          }
+        }
+      ]
+    },
+    {
       "name": "Health & Metrics",
       "item": [
         {

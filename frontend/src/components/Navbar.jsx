@@ -25,6 +25,7 @@ export default function Navbar({ onLogout }) {
         <NavLink to="/depreciation">Depreciation</NavLink>
         <NavLink to="/tax-strategy">Tax Strategy</NavLink>
         <NavLink to="/classification">Classification</NavLink>
+        <NavLink to="/breakout">Breakout</NavLink>
       </div>
       <button className="btn btn-sm btn-secondary" onClick={handleLogout}>
         Sign Out

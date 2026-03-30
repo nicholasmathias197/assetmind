@@ -71,8 +71,37 @@ export default function Classification() {
 
       {result && (
         <div className="card result-card">
-          <h3>Classification Result</h3>
-          <pre className="result-json">{JSON.stringify(result, null, 2)}</pre>
+          <div className="result-summary">
+            <h3>Classification Result</h3>
+            <div className="result-grid">
+              <div className="result-item">
+                <span className="result-label">Asset Class</span>
+                <span className="result-value"><span className="badge badge-lg">{(result.assetClass || '').replace(/_/g, ' ')}</span></span>
+              </div>
+              <div className="result-item">
+                <span className="result-label">GL Code</span>
+                <span className="result-value font-mono">{result.glCode}</span>
+              </div>
+              <div className="result-item">
+                <span className="result-label">Useful Life</span>
+                <span className="result-value">{result.usefulLifeYears} years</span>
+              </div>
+              <div className="result-item">
+                <span className="result-label">Confidence</span>
+                <span className="result-value">
+                  <span className={`confidence-badge ${result.confidence >= 0.7 ? 'confidence-high' : result.confidence >= 0.4 ? 'confidence-med' : 'confidence-low'}`}>
+                    {Math.round((result.confidence ?? 0) * 100)}%
+                  </span>
+                </span>
+              </div>
+            </div>
+            {result.rationale && (
+              <div className="result-rationale">
+                <span className="result-label">Rationale</span>
+                <p>{result.rationale}</p>
+              </div>
+            )}
+          </div>
         </div>
       )}
     </div>

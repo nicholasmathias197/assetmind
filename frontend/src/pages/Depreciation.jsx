@@ -192,8 +192,75 @@ export default function Depreciation() {
 
       {result && (
         <div className="card result-card">
-          <h3>Result</h3>
-          <pre className="result-json">{JSON.stringify(result, null, 2)}</pre>
+          {/* AI Recommendation metadata (recommend & ai-run modes) */}
+          {(mode === 'recommend' || mode === 'ai-run') && (
+            <div className="result-summary">
+              <h3>AI Recommendation</h3>
+              <div className="result-grid">
+                <div className="result-item">
+                  <span className="result-label">Method</span>
+                  <span className="result-value">{(result.recommendedMethod || '').replace(/_/g, ' ')}</span>
+                </div>
+                <div className="result-item">
+                  <span className="result-label">Useful Life</span>
+                  <span className="result-value">{result.suggestedUsefulLifeYears ?? result.suggestedUsefulLifeYears} years</span>
+                </div>
+                <div className="result-item">
+                  <span className="result-label">Confidence</span>
+                  <span className="result-value">
+                    <span className={`confidence-badge ${(result.aiConfidence ?? result.confidence) >= 0.7 ? 'confidence-high' : (result.aiConfidence ?? result.confidence) >= 0.4 ? 'confidence-med' : 'confidence-low'}`}>
+                      {Math.round((result.aiConfidence ?? result.confidence ?? 0) * 100)}%
+                    </span>
+                  </span>
+                </div>
+                <div className="result-item">
+                  <span className="result-label">Source</span>
+                  <span className="result-value"><span className="badge">{result.aiSource ?? result.source}</span></span>
+                </div>
+              </div>
+              {(result.aiRationale || result.rationale) && (
+                <div className="result-rationale">
+                  <span className="result-label">Rationale</span>
+                  <p>{result.aiRationale || result.rationale}</p>
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* Schedule table (run & ai-run modes) */}
+          {(Array.isArray(result) || result.schedule) && (() => {
+            const schedule = Array.isArray(result) ? result : result.schedule;
+            const fmt = (n) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(n);
+            return schedule && schedule.length > 0 && (
+              <div className="schedule-section">
+                <h3>Depreciation Schedule</h3>
+                <div className="table-container">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Year</th>
+                        <th>Opening Value</th>
+                        <th>Depreciation</th>
+                        <th>Ending Value</th>
+                        <th>Note</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {schedule.map((line, i) => (
+                        <tr key={i}>
+                          <td>{line.yearNumber}</td>
+                          <td className="text-right">{fmt(line.beginningBookValue)}</td>
+                          <td className="text-right depreciation-amount">{fmt(line.depreciationExpense)}</td>
+                          <td className="text-right">{fmt(line.endingBookValue)}</td>
+                          <td className="text-muted">{line.explanation}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            );
+          })()}
         </div>
       )}
     </div>

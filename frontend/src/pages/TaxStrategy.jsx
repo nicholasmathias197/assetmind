@@ -87,8 +87,33 @@ export default function TaxStrategy() {
 
       {result && (
         <div className="card result-card">
-          <h3>Recommendation</h3>
-          <pre className="result-json">{JSON.stringify(result, null, 2)}</pre>
+          <div className="result-summary">
+            <h3>Tax Strategy Recommendation</h3>
+            <div className="result-grid">
+              <div className="result-item">
+                <span className="result-label">Recommended Method</span>
+                <span className="result-value">{(result.recommendedMethod || '').replace(/_/g, ' ')}</span>
+              </div>
+              <div className="result-item">
+                <span className="result-label">Confidence</span>
+                <span className="result-value">
+                  <span className={`confidence-badge ${result.confidence >= 0.7 ? 'confidence-high' : result.confidence >= 0.4 ? 'confidence-med' : 'confidence-low'}`}>
+                    {Math.round((result.confidence ?? 0) * 100)}%
+                  </span>
+                </span>
+              </div>
+              <div className="result-item">
+                <span className="result-label">Source</span>
+                <span className="result-value"><span className="badge">{result.source}</span></span>
+              </div>
+            </div>
+            {result.rationale && (
+              <div className="result-rationale">
+                <span className="result-label">Rationale</span>
+                <p>{result.rationale}</p>
+              </div>
+            )}
+          </div>
         </div>
       )}
     </div>

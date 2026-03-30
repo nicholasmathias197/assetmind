@@ -116,6 +116,10 @@ export const api = {
   classifyDocument: (documentText) =>
     request('/classification/suggest', { method: 'POST', body: JSON.stringify({ documentText }) }),
 
+  // Breakout
+  suggestBreakout: (documentText) =>
+    request('/breakout/suggest', { method: 'POST', body: JSON.stringify({ documentText }) }),
+
   // Health
   health: () => fetch('/actuator/health').then((r) => r.json()),
 };

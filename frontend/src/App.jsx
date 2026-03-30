@@ -8,6 +8,7 @@ import Assets from './pages/Assets';
 import Depreciation from './pages/Depreciation';
 import TaxStrategy from './pages/TaxStrategy';
 import Classification from './pages/Classification';
+import Breakout from './pages/Breakout';
 
 function ProtectedRoute({ children, authed }) {
   return authed ? children : <Navigate to="/login" replace />;
@@ -38,6 +39,9 @@ export default function App() {
           } />
           <Route path="/classification" element={
             <ProtectedRoute authed={authed}><Classification /></ProtectedRoute>
+          } />
+          <Route path="/breakout" element={
+            <ProtectedRoute authed={authed}><Breakout /></ProtectedRoute>
           } />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
