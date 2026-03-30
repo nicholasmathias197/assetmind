@@ -15,7 +15,9 @@ function clearTokens() {
 }
 
 async function request(path, options = {}) {
-  const headers = { 'Content-Type': 'application/json', ...options.headers };
+  const isFormData = options.body instanceof FormData;
+  const defaultHeaders = isFormData ? {} : { 'Content-Type': 'application/json' };
+  const headers = { ...defaultHeaders, ...options.headers };
   const token = getToken();
   if (token) headers['Authorization'] = `Bearer ${token}`;
 
@@ -39,6 +41,34 @@ async function request(path, options = {}) {
     throw new Error(text || `HTTP ${res.status}`);
   }
   return res.status === 204 ? null : res.json();
+}
+
+async function requestRaw(path, options = {}) {
+  const headers = { ...options.headers };
+  const token = getToken();
+  if (token) headers['Authorization'] = `Bearer ${token}`;
+
+  const res = await fetch(`${API_BASE}${path}`, { ...options, headers });
+
+  if (res.status === 401) {
+    const refreshed = await tryRefresh();
+    if (refreshed) {
+      headers['Authorization'] = `Bearer ${getToken()}`;
+      const retry = await fetch(`${API_BASE}${path}`, { ...options, headers });
+      if (!retry.ok) throw new Error(await retry.text());
+      return retry;
+    }
+    clearTokens();
+    window.location.href = '/login';
+    throw new Error('Session expired');
+  }
+
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error(text || `HTTP ${res.status}`);
+  }
+
+  return res;
 }
 
 async function tryRefresh() {
@@ -99,6 +129,36 @@ export const api = {
     request(`/assets/${encodeURIComponent(id)}`, { method: 'PUT', body: JSON.stringify(asset) }),
   deleteAsset: (id) =>
     request(`/assets/${encodeURIComponent(id)}`, { method: 'DELETE' }),
+  exportAssetsExcel: async (assetClass) => {
+    const params = new URLSearchParams();
+    if (assetClass) params.set('assetClass', assetClass);
+    const query = params.toString();
+    const response = await requestRaw(`/assets/export${query ? `?${query}` : ''}`, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      },
+    });
+    return response.blob();
+  },
+  exportAssetsTemplateExcel: async () => {
+    const response = await requestRaw('/assets/export/template', {
+      method: 'GET',
+      headers: {
+        Accept: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      },
+    });
+    return response.blob();
+  },
+  importAssetsExcel: async (file) => {
+    const formData = new FormData();
+    formData.append('file', file);
+    return request('/assets/import', {
+      method: 'POST',
+      headers: {},
+      body: formData,
+    });
+  },
 
   // Depreciation
   runDepreciation: (data) =>

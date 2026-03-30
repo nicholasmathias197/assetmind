@@ -40,6 +40,7 @@
         <testcontainers.version>1.19.3</testcontainers.version>
         <lombok.version>1.18.30</lombok.version>
         <mapstruct.version>1.5.5.Final</mapstruct.version>
+        <commons-compress.version>1.26.2</commons-compress.version>
     </properties>
 
     <repositories>
@@ -94,6 +95,13 @@
                 <groupId>org.nd4j</groupId>
                 <artifactId>nd4j-native-platform</artifactId>
                 <version>${deeplearning4j.version}</version>
+            </dependency>
+
+            <!-- Keep Apache POI and transitive ZIP handling on a compatible version -->
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-compress</artifactId>
+                <version>${commons-compress.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

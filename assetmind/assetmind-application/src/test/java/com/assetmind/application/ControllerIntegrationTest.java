@@ -1,6 +1,9 @@
 package com.assetmind.application;
 
 import com.assetmind.infrastructure.security.JwtTokenProvider;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -8,10 +11,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 
 import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
@@ -173,6 +182,114 @@ class ControllerIntegrationTest {
             mockMvc.perform(get("/api/v1/assets"))
                     .andExpect(status().isUnauthorized());
         }
+
+                @Test
+                void exportExcel_returnsWorkbookWithHeadersAndData() throws Exception {
+                        String body = """
+                                        {
+                                          "id": "ASSET-EXP-001",
+                                          "description": "Excel export asset",
+                                          "assetClass": "COMPUTER_EQUIPMENT",
+                                          "costBasis": 2100.00,
+                                          "inServiceDate": "2026-01-01",
+                                          "usefulLifeYears": 5
+                                        }
+                                        """;
+                        mockMvc.perform(post("/api/v1/assets")
+                                                        .header("Authorization", "Bearer " + token)
+                                                        .contentType(MediaType.APPLICATION_JSON)
+                                                        .content(body))
+                                        .andExpect(status().isCreated());
+
+                        MvcResult result = mockMvc.perform(get("/api/v1/assets/export")
+                                                        .header("Authorization", "Bearer " + token))
+                                        .andExpect(status().isOk())
+                                        .andExpect(header().string("Content-Disposition", containsString("assets.xlsx")))
+                                        .andReturn();
+
+                        try (XSSFWorkbook workbook = new XSSFWorkbook(new ByteArrayInputStream(result.getResponse().getContentAsByteArray()))) {
+                                Sheet sheet = workbook.getSheetAt(0);
+                                Row header = sheet.getRow(0);
+                                Row firstData = sheet.getRow(1);
+
+                                org.junit.jupiter.api.Assertions.assertEquals("id", header.getCell(0).getStringCellValue());
+                                org.junit.jupiter.api.Assertions.assertEquals("description", header.getCell(1).getStringCellValue());
+                                org.junit.jupiter.api.Assertions.assertEquals("assetClass", header.getCell(2).getStringCellValue());
+                                org.junit.jupiter.api.Assertions.assertNotNull(firstData);
+                        }
+                }
+
+                @Test
+                void exportTemplate_returnsWorkbookTemplateFile() throws Exception {
+                        MvcResult result = mockMvc.perform(get("/api/v1/assets/export/template")
+                                                        .header("Authorization", "Bearer " + token))
+                                        .andExpect(status().isOk())
+                                        .andExpect(header().string("Content-Disposition", containsString("assets-template.xlsx")))
+                                        .andReturn();
+
+                        try (XSSFWorkbook workbook = new XSSFWorkbook(new ByteArrayInputStream(result.getResponse().getContentAsByteArray()))) {
+                                Sheet sheet = workbook.getSheetAt(0);
+                                Row header = sheet.getRow(0);
+                                Row sample = sheet.getRow(1);
+
+                                org.junit.jupiter.api.Assertions.assertEquals("id", header.getCell(0).getStringCellValue());
+                                org.junit.jupiter.api.Assertions.assertEquals("ASSET-001", sample.getCell(0).getStringCellValue());
+                        }
+                }
+
+                @Test
+                void importExcel_createsAndUpdatesAssets() throws Exception {
+                        byte[] workbookBytes = buildAssetWorkbook(
+                                        new String[][] {
+                                                        {"ASSET-IMP-001", "Imported asset", "COMPUTER_EQUIPMENT", "900.50", "2026-02-02", "5"},
+                                                        {"ASSET-IMP-001", "Imported asset updated", "COMPUTER_EQUIPMENT", "1000.00", "2026-02-02", "5"}
+                                        }
+                        );
+
+                        MockMultipartFile file = new MockMultipartFile(
+                                        "file",
+                                        "assets-import.xlsx",
+                                        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                                        workbookBytes
+                        );
+
+                        mockMvc.perform(multipart("/api/v1/assets/import")
+                                                        .file(file)
+                                                        .header("Authorization", "Bearer " + token))
+                                        .andExpect(status().isOk())
+                                        .andExpect(jsonPath("$.totalRows").value(2))
+                                        .andExpect(jsonPath("$.imported").value(2))
+                                        .andExpect(jsonPath("$.failed").value(0));
+
+                        mockMvc.perform(get("/api/v1/assets/ASSET-IMP-001")
+                                                        .header("Authorization", "Bearer " + token))
+                                        .andExpect(status().isOk())
+                                        .andExpect(jsonPath("$.description").value("Imported asset updated"))
+                                        .andExpect(jsonPath("$.costBasis").value(1000.00));
+                }
+
+                private byte[] buildAssetWorkbook(String[][] rows) throws Exception {
+                        try (XSSFWorkbook workbook = new XSSFWorkbook(); ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
+                                Sheet sheet = workbook.createSheet("Assets");
+                                Row header = sheet.createRow(0);
+                                header.createCell(0).setCellValue("id");
+                                header.createCell(1).setCellValue("description");
+                                header.createCell(2).setCellValue("assetClass");
+                                header.createCell(3).setCellValue("costBasis");
+                                header.createCell(4).setCellValue("inServiceDate");
+                                header.createCell(5).setCellValue("usefulLifeYears");
+
+                                for (int i = 0; i < rows.length; i++) {
+                                        Row row = sheet.createRow(i + 1);
+                                        for (int c = 0; c < rows[i].length; c++) {
+                                                row.createCell(c).setCellValue(rows[i][c]);
+                                        }
+                                }
+
+                                workbook.write(outputStream);
+                                return outputStream.toByteArray();
+                        }
+                }
     }
 
     // =====================================================================

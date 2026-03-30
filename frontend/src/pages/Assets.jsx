@@ -29,6 +29,7 @@ export default function Assets() {
   const [showForm, setShowForm] = useState(false);
   const [editing, setEditing] = useState(false);
   const [form, setForm] = useState({ ...emptyAsset });
+  const [busyAction, setBusyAction] = useState('');
 
   const loadAssets = useCallback(async () => {
     setLoading(true);
@@ -97,6 +98,63 @@ export default function Assets() {
     }
   };
 
+  const handleExportExcel = async () => {
+    try {
+      setBusyAction('export');
+      const blob = await api.exportAssetsExcel(filterClass || undefined);
+      const url = URL.createObjectURL(blob);
+      const anchor = document.createElement('a');
+      anchor.href = url;
+      anchor.download = `assets-${new Date().toISOString().slice(0, 10)}.xlsx`;
+      document.body.appendChild(anchor);
+      anchor.click();
+      anchor.remove();
+      URL.revokeObjectURL(url);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setBusyAction('');
+    }
+  };
+
+  const handleImportExcel = async (event) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+    try {
+      setBusyAction('import');
+      setError('');
+      const result = await api.importAssetsExcel(file);
+      await loadAssets();
+      if (result.failed > 0) {
+        setError(`Imported ${result.imported}/${result.totalRows} rows. ${result.errors[0] || 'Some rows failed.'}`);
+      }
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setBusyAction('');
+      event.target.value = '';
+    }
+  };
+
+  const handleDownloadTemplate = async () => {
+    try {
+      setBusyAction('template');
+      const blob = await api.exportAssetsTemplateExcel();
+      const url = URL.createObjectURL(blob);
+      const anchor = document.createElement('a');
+      anchor.href = url;
+      anchor.download = 'assets-template.xlsx';
+      document.body.appendChild(anchor);
+      anchor.click();
+      anchor.remove();
+      URL.revokeObjectURL(url);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setBusyAction('');
+    }
+  };
+
   const setField = (key, val) => setForm((f) => ({ ...f, [key]: val }));
 
   const formatCurrency = (n) =>
@@ -112,7 +170,25 @@ export default function Assets() {
           <h2>Assets</h2>
           <p className="text-muted">{totalElements} total asset{totalElements !== 1 ? 's' : ''}</p>
         </div>
-        <button className="btn btn-primary" onClick={openCreate}>+ New Asset</button>
+        <div className="asset-toolbar">
+          <button className="btn btn-secondary" onClick={handleDownloadTemplate} disabled={busyAction === 'template'}>
+            {busyAction === 'template' ? 'Downloading...' : 'Download Template'}
+          </button>
+          <button className="btn btn-secondary" onClick={handleExportExcel} disabled={busyAction === 'export'}>
+            {busyAction === 'export' ? 'Exporting...' : 'Export Excel'}
+          </button>
+          <label className={`btn btn-secondary ${busyAction === 'import' ? 'btn-disabled' : ''}`}>
+            {busyAction === 'import' ? 'Importing...' : 'Import Excel'}
+            <input
+              type="file"
+              accept=".xlsx"
+              onChange={handleImportExcel}
+              disabled={busyAction === 'import'}
+              hidden
+            />
+          </label>
+          <button className="btn btn-primary" onClick={openCreate}>+ New Asset</button>
+        </div>
       </div>
 
       <div className="filters">

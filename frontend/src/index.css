@@ -164,6 +164,17 @@ body {
   font-weight: 700;
 }
 
+.asset-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-disabled {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
 /* ── Buttons ── */
 .btn {
   display: inline-flex;
@@ -849,6 +860,11 @@ tr:hover td {
     flex-direction: column;
     align-items: flex-start;
     gap: 12px;
+  }
+
+  .asset-toolbar {
+    width: 100%;
+    flex-wrap: wrap;
   }
 
   .breakout-line {
