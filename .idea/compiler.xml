@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Annotation profile for assetmind-application" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.30/lombok-1.18.30.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct-processor/1.5.5.Final/mapstruct-processor-1.5.5.Final.jar" />
+        </processorPath>
+        <module name="assetmind-ai" />
+        <module name="assetmind-infrastructure" />
+        <module name="assetmind-batch" />
+        <module name="assetmind-core" />
+        <module name="assetmind-application" />
+        <module name="assetmind-api" />
+        <module name="assetmind-integration" />
+      </profile>
+    </annotationProcessing>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="assetmind-ai" options="-parameters" />
+      <module name="assetmind-api" options="-parameters" />
+      <module name="assetmind-application" options="-parameters" />
+      <module name="assetmind-batch" options="-parameters" />
+      <module name="assetmind-core" options="-parameters" />
+      <module name="assetmind-infrastructure" options="-parameters" />
+      <module name="assetmind-integration" options="-parameters" />
+    </option>
+  </component>
+</project>

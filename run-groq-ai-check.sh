@@ -5,15 +5,29 @@ APP_PORT="${APP_PORT:-8091}"
 PROJECT_ROOT="/c/Users/nicholas.mathias/IdeaProjects/assetmind/assetmind"
 APP_POM="$PROJECT_ROOT/assetmind-application/pom.xml"
 APP_LOG="/tmp/assetmind-ai-check.log"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+LOCAL_ENV_FILE="${LOCAL_ENV_FILE:-$SCRIPT_DIR/.groq.local.env}"
+
+if [[ -z "${GROQ_API_KEY:-}" && -f "$LOCAL_ENV_FILE" ]]; then
+  # shellcheck source=/dev/null
+  source "$LOCAL_ENV_FILE"
+fi
 
 if [[ -z "${GROQ_API_KEY:-}" ]]; then
-  read -rsp "Enter GROQ_API_KEY: " GROQ_API_KEY
-  echo
-  export GROQ_API_KEY
+  echo "GROQ_API_KEY is not set."
+  echo "Set it once in your shell or create $LOCAL_ENV_FILE with:"
+  echo "GROQ_API_KEY=your_groq_key_here"
+  exit 1
+fi
+
+if [[ "$GROQ_API_KEY" == "replace_with_your_groq_api_key" ]]; then
+  echo "GROQ_API_KEY is still set to the placeholder value in $LOCAL_ENV_FILE"
+  echo "Please replace it with a real key from https://console.groq.com"
+  exit 1
 fi
 
 echo "[1/5] Testing Groq API key..."
-GROQ_RESP=$(curl -sS https://api.groq.com/openai/v1/chat/completions \
+GROQ_HTTP=$(curl -sS -w '\n%{http_code}' https://api.groq.com/openai/v1/chat/completions \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer $GROQ_API_KEY" \
   -d '{
@@ -23,9 +37,18 @@ GROQ_RESP=$(curl -sS https://api.groq.com/openai/v1/chat/completions \
     "temperature": 0
   }')
 
-echo "$GROQ_RESP" | python - <<'PY'
+GROQ_RESP="${GROQ_HTTP%$'\n'*}"
+GROQ_STATUS="${GROQ_HTTP##*$'\n'}"
+
+if [[ "$GROQ_STATUS" -lt 200 || "$GROQ_STATUS" -ge 300 ]]; then
+  echo "Groq API HTTP error: $GROQ_STATUS"
+  echo "$GROQ_RESP"
+  exit 1
+fi
+
+python - <<'PY' "$GROQ_RESP"
 import json,sys
-raw=sys.stdin.read()
+raw=sys.argv[1]
 try:
     data=json.loads(raw)
 except Exception:

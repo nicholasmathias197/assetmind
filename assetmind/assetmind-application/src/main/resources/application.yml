@@ -20,7 +20,7 @@ spring:
   # ---------------------------------------------------------------
   ai:
     openai:
-      api-key: ${GROQ_API_KEY:GROQ_NOT_CONFIGURED}
+      api-key: ${GROQ_API_KEY:}
       base-url: ${AI_BASE_URL:https://api.groq.com/openai}
       chat:
         options:

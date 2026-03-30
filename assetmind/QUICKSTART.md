@@ -15,7 +15,7 @@ cd /c/Users/nicholas.mathias/IdeaProjects/assetmind/assetmind
 # Build all modules (skip tests for speed)
 mvn clean install -DskipTests
 
-# Start the application
+# Start the application (spring-boot:run now targets only the application module)
 mvn -pl assetmind-application -am spring-boot:run
 ```
 
@@ -23,53 +23,30 @@ Server listens on `http://localhost:8080`
 
 ---
 
-## AI Features Setup (Optional — Groq)
+## AI Features Setup (Groq — Active by Default)
 
 AssetMind uses **Groq** (free tier, OpenAI-compatible) to power the
 `/depreciation/ai-run`, `/depreciation/recommend`, `/tax-strategy/recommend`,
 and `/classification/suggest` endpoints.
 
-**Without a key:** every AI endpoint still works — it falls back to the built-in
-rule engine and keyword matching, and the response will show `"aiSource": "RULE_FALLBACK"`.
+**The Groq API key is already embedded in `application.yml`** — no environment
+variable or extra setup required.  Just start the app and AI is live.
 
-**With a key:** responses come from `llama-3.3-70b-versatile` via Groq and show
-`"aiSource": "AI_GROQ"`.
+Responses from the AI endpoints will show `"aiSource": "AI_GROQ"` (model: `llama-3.3-70b-versatile`).  
+If the Groq API is unreachable for any reason the service automatically falls back to the built-in
+rule engine and the response will show `"aiSource": "RULE_FALLBACK"`.
 
-### Get a Free Groq Key
-1. Sign up at <https://console.groq.com>
-2. Create an API key under **API Keys**
-
-### Set the Key
-**Option A — shell environment (temporary):**
+### Override the Key (optional)
+If you want to rotate to a different key without touching the source:
 ```bash
-export GROQ_API_KEY=gsk_your_key_here
+export GROQ_API_KEY=gsk_your_new_key_here
 mvn -pl assetmind-application -am spring-boot:run
-```
-
-**Option B — `.groq.local.env` file (permanent, gitignored):**
-```bash
-# Create the file at the workspace root
-echo 'GROQ_API_KEY=gsk_your_key_here' > /c/Users/nicholas.mathias/IdeaProjects/assetmind/.groq.local.env
-```
-Then source it before starting:
-```bash
-source /c/Users/nicholas.mathias/IdeaProjects/assetmind/.groq.local.env
-mvn -pl assetmind-application -am spring-boot:run
-```
-
-**Option C — `application.yml` override (dev only, never commit keys):**
-```yaml
-spring:
-  ai:
-    openai:
-      api-key: gsk_your_key_here
 ```
 
 ### Verify the Key Works
 ```bash
 bash /c/Users/nicholas.mathias/IdeaProjects/assetmind/run-groq-ai-check.sh
 ```
-This script validates the key, starts the app, and hits the classification endpoint end-to-end.
 
 ---
 

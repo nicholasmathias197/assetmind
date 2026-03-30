@@ -126,6 +126,8 @@
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-maven-plugin</artifactId>
                     <configuration>
+                        <!-- skip by default; assetmind-application overrides to false -->
+                        <skip>true</skip>
                         <excludes>
                             <exclude>
                                 <groupId>org.projectlombok</groupId>

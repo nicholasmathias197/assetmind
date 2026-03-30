@@ -8,11 +8,13 @@ ENV_FILE="$ROOT_DIR/assetmind/AssetMind-Local.postman_environment.json"
 usage() {
   cat <<'EOF'
 Usage:
-  ./run-postman-checklist.sh [--base-url URL] [--newman-cmd CMD]
+  ./run-postman-checklist.sh [--base-url URL] [--newman-cmd CMD] [--reporter-junit] [--junit-dir DIR]
 
 Options:
   --base-url URL     Override the environment baseUrl value at runtime.
   --newman-cmd CMD   Use a specific Newman launcher (e.g. "newman" or "npx newman").
+  --reporter-junit   Enable JUnit XML output (CI-friendly).
+  --junit-dir DIR    Directory for JUnit XML files (default: ./newman-reports).
   -h, --help         Show this help.
 
 Notes:
@@ -23,6 +25,8 @@ EOF
 
 BASE_URL_OVERRIDE=""
 NEWMAN_CMD_OVERRIDE=""
+CI_JUNIT_MODE="false"
+JUNIT_DIR="$ROOT_DIR/newman-reports"
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
@@ -32,6 +36,14 @@ while [[ $# -gt 0 ]]; do
       ;;
     --newman-cmd)
       NEWMAN_CMD_OVERRIDE="${2:-}"
+      shift 2
+      ;;
+    --reporter-junit)
+      CI_JUNIT_MODE="true"
+      shift
+      ;;
+    --junit-dir)
+      JUNIT_DIR="${2:-}"
       shift 2
       ;;
     -h|--help)
@@ -89,13 +101,24 @@ run_folder() {
     cmd+=( --env-var "baseUrl=$BASE_URL_OVERRIDE" )
   fi
 
+  if [[ "$CI_JUNIT_MODE" == "true" ]]; then
+    local safe_folder
+    safe_folder="$(printf '%s' "$folder" | tr ' ' '_' | tr -cd '[:alnum:]_-')"
+    cmd+=( --reporters "cli,junit" --reporter-junit-export "$JUNIT_DIR/${safe_folder}.xml" )
+  fi
+
   "${cmd[@]}"
 }
 
 NEWMAN_CMD="$(resolve_newman_cmd)"
 
+if [[ "$CI_JUNIT_MODE" == "true" ]]; then
+  mkdir -p "$JUNIT_DIR"
+fi
+
 echo "Using Newman command: $NEWMAN_CMD"
 [[ -n "$BASE_URL_OVERRIDE" ]] && echo "Overriding baseUrl with: $BASE_URL_OVERRIDE"
+[[ "$CI_JUNIT_MODE" == "true" ]] && echo "JUnit XML output directory: $JUNIT_DIR"
 
 echo "==> Preflight: quick health check"
 HEALTH_URL="${BASE_URL_OVERRIDE:-http://localhost:8080}/actuator/health"
@@ -113,4 +136,8 @@ run_folder "Health" "$NEWMAN_CMD"
 
 echo ""
 echo "Checklist complete."
+
+if [[ "$CI_JUNIT_MODE" == "true" ]]; then
+  echo "JUnit reports generated under: $JUNIT_DIR"
+fi
 
