@@ -72,11 +72,13 @@ frontend/                   ← React SPA (Vite + React 19 + React Router 7)
 |--------|------|-------------|
 | POST | `/api/v1/breakout/suggest` | AI-suggested component breakdown from invoice text |
 
-### Health (public)
+### Health & Docs (public)
 | Method | Path | Description |
 |--------|------|-------------|
 | GET | `/actuator/health` | Application health check |
 | GET | `/actuator/metrics` | Application metrics |
+| GET | `/swagger-ui.html` | Swagger UI (interactive API docs) |
+| GET | `/v3/api-docs` | OpenAPI 3.0 JSON spec |
 
 ## Quick Start
 
@@ -105,12 +107,80 @@ npm run dev
 
 Starts on `http://localhost:3000` with API requests proxied to the backend on port 8080.
 
+### API Documentation
+
+Swagger UI is available at `http://localhost:8080/swagger-ui.html` (no authentication required).
+OpenAPI spec at `http://localhost:8080/v3/api-docs`.
+
+## Quality & Testing
+
+### Tests
+
+```bash
+cd assetmind
+mvn clean test                          # run all tests
+mvn test -pl assetmind-ai              # unit tests only (classification, breakout, etc.)
+mvn test -pl assetmind-application     # integration tests (controllers, auth, Swagger)
+```
+
+**Unit tests** — AI service keyword-fallback and mocked ChatClient tests for Classification, Depreciation, Tax Strategy, and Breakout services.
+
+**Integration tests** — Full Spring Boot context with H2 in-memory DB and JWT auth covering all controller endpoints, validation, auth flows, Swagger accessibility, and correlation ID propagation.
+
+### Code Coverage
+
+JaCoCo coverage reports are generated automatically during `mvn test`:
+
+```bash
+mvn clean test
+# HTML report at: assetmind-ai/target/site/jacoco/index.html
+# HTML report at: assetmind-application/target/site/jacoco/index.html
+```
+
+## Production-Readiness Features
+
+### Structured Logging & Correlation IDs
+
+Every HTTP request is tagged with a unique `X-Correlation-ID` (auto-generated or echoed from the incoming header). The ID appears in all log entries via SLF4J MDC and is returned in the response header for end-to-end tracing.
+
+Default output includes the correlation ID in human-readable format. Activate the `json-logging` Spring profile for structured JSON output suitable for log aggregators:
+
+```bash
+SPRING_PROFILES_ACTIVE=json-logging mvn -pl assetmind-application spring-boot:run
+```
+
+### Rate Limiting
+
+AI endpoints are protected by an in-memory rate limiter (20 requests per minute per client). Affected endpoints:
+- `/api/v1/classification/suggest`
+- `/api/v1/depreciation/recommend`
+- `/api/v1/depreciation/ai-run`
+- `/api/v1/tax-strategy/recommend`
+- `/api/v1/breakout/suggest`
+
+Rate limit headers (`X-RateLimit-Limit`, `X-RateLimit-Remaining`, `Retry-After`) are included in responses.
+
+### Caching
+
+Classification and tax strategy recommendations are cached using Caffeine (in-memory, 5 minute TTL, max 500 entries). Identical requests hit the cache instead of re-invoking the AI, reducing latency and API costs.
+
+### Data Visualization
+
+The Depreciation page includes interactive charts (via Recharts) showing:
+- **Bar chart** — Depreciation expense per year
+- **Line overlay** — Book value declining over time
+
+Charts render automatically below the schedule table for both Manual Run and AI Full Schedule modes.
+
 ## Tech Stack
 
 | Layer | Technology |
 |-------|-----------|
 | Backend | Java 21, Spring Boot, Spring Security (JWT), Flyway, MySQL |
 | AI | Groq LLM API with rule-based fallback |
-| Frontend | React 19, Vite, React Router 7, custom CSS |
+| Frontend | React 19, Vite, React Router 7, Recharts, custom CSS |
+| API Docs | SpringDoc OpenAPI / Swagger UI |
+| Caching | Caffeine (in-memory, 5 min TTL) |
+| Testing | JUnit 5, Mockito, MockMvc, JaCoCo |
 | Build | Maven (multi-module), npm |
 

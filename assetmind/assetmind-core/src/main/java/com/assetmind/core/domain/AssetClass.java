@@ -6,6 +6,9 @@ public enum AssetClass {
     LEASEHOLD_IMPROVEMENT,
     BUILDING_IMPROVEMENT,
     VEHICLE,
+    LAND,
+    BUILDING,
+    MACHINERY,
     OTHER
 }
 

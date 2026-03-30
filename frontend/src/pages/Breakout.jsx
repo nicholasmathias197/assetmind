@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { api } from '../api';
 
 const ASSET_CLASSES = [
@@ -42,6 +42,7 @@ const TEMPLATES = {
 };
 
 export default function Breakout() {
+  const errorRef = useRef(null);
   const [parentDesc, setParentDesc] = useState('');
   const [parentCost, setParentCost] = useState('');
   const [inServiceDate, setInServiceDate] = useState('2026-01-01');
@@ -126,9 +127,10 @@ export default function Breakout() {
     setError('');
     setResults(null);
 
-    const invalid = lines.filter((l) => !l.id || !l.description || !l.costBasis || !l.usefulLifeYears);
+    const invalid = lines.filter((l) => !l.id || !l.description || !l.costBasis || (!l.usefulLifeYears && l.usefulLifeYears !== '0' && l.usefulLifeYears !== 0));
     if (invalid.length > 0) {
       setError('All component rows must have an ID, description, cost, and useful life.');
+      setTimeout(() => errorRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' }), 50);
       return;
     }
 
@@ -208,7 +210,7 @@ export default function Breakout() {
         </div>
       </div>
 
-      {error && <div className="alert alert-error">{error}</div>}
+      {error && <div className="alert alert-error" ref={errorRef}>{error}</div>}
 
       {/* Parent Purchase */}
       <div className="card">
@@ -470,6 +472,7 @@ export default function Breakout() {
 
       {/* Create Button */}
       <div className="breakout-submit">
+        {error && <div className="alert alert-error" style={{ marginBottom: '0.75rem' }}>{error}</div>}
         <button
           className="btn btn-primary"
           onClick={handleCreate}

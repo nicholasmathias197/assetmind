@@ -1,5 +1,9 @@
 import { useState } from 'react';
 import { api } from '../api';
+import {
+  ResponsiveContainer, ComposedChart, Bar, Line, XAxis, YAxis,
+  CartesianGrid, Tooltip, Legend,
+} from 'recharts';
 
 const METHODS = ['STRAIGHT_LINE', 'DECLINING_BALANCE', 'DOUBLE_DECLINING', 'SUM_OF_YEARS', 'MACRS'];
 const BOOK_TYPES = ['BOOK', 'TAX'];
@@ -232,6 +236,7 @@ export default function Depreciation() {
             const schedule = Array.isArray(result) ? result : result.schedule;
             const fmt = (n) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(n);
             return schedule && schedule.length > 0 && (
+              <>
               <div className="schedule-section">
                 <h3>Depreciation Schedule</h3>
                 <div className="table-container">
@@ -259,6 +264,26 @@ export default function Depreciation() {
                   </table>
                 </div>
               </div>
+
+              <div className="schedule-section" style={{ marginTop: '1.5rem' }}>
+                <h3>Depreciation Chart</h3>
+                <ResponsiveContainer width="100%" height={320}>
+                  <ComposedChart data={schedule.map((l) => ({
+                    year: `Yr ${l.yearNumber}`,
+                    expense: l.depreciationExpense,
+                    bookValue: l.endingBookValue,
+                  }))}>
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="year" />
+                    <YAxis tickFormatter={(v) => `$${(v / 1000).toFixed(0)}k`} />
+                    <Tooltip formatter={(v) => fmt(v)} />
+                    <Legend />
+                    <Bar dataKey="expense" name="Depreciation Expense" fill="#6366f1" radius={[4, 4, 0, 0]} />
+                    <Line dataKey="bookValue" name="Book Value" type="monotone" stroke="#f59e0b" strokeWidth={2} dot={{ r: 4 }} />
+                  </ComposedChart>
+                </ResponsiveContainer>
+              </div>
+              </>
             );
           })()}
         </div>

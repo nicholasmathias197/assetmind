@@ -13,6 +13,11 @@ spring:
         format_sql: true
   flyway:
     enabled: true
+  cache:
+    cache-names: classifications,taxStrategies
+    type: caffeine
+    caffeine:
+      spec: maximumSize=500,expireAfterWrite=300s
   # ---------------------------------------------------------------
   # AI Classification (Groq free tier — OpenAI-compatible API)
   # Get a free key at https://console.groq.com
@@ -35,6 +40,14 @@ management:
     web:
       exposure:
         include: health,info,metrics
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    tags-sorter: alpha
+    operations-sorter: alpha
 
 jwt:
   secret: ${JWT_SECRET:assetmind-local-jwt-secret-for-hs512-development-only-change-this-before-production-2026}

@@ -116,9 +116,10 @@ public class DepreciationRecommendationService {
     private int defaultUsefulLife(AssetClass assetClass) {
         return switch (assetClass) {
             case COMPUTER_EQUIPMENT, VEHICLE -> 5;
-            case FURNITURE -> 7;
+            case FURNITURE, MACHINERY -> 7;
             case LEASEHOLD_IMPROVEMENT -> 15;
-            case BUILDING_IMPROVEMENT -> 39;
+            case BUILDING_IMPROVEMENT, BUILDING -> 39;
+            case LAND -> 0;
             case OTHER -> 10;
         };
     }

@@ -12,6 +12,7 @@ import org.springframework.ai.chat.messages.SystemMessage;
 import org.springframework.ai.chat.messages.UserMessage;
 import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -45,6 +46,7 @@ public class TaxStrategyRecommendationService {
         this.fallbackAdvisor = fallbackAdvisor;
     }
 
+    @Cacheable(value = "taxStrategies", key = "#stateCode + ':' + #equipmentType + ':' + #immediateDeductionPreferred + ':' + #longHorizonAsset")
     public TaxStrategyRecommendation recommend(
             String stateCode,
             String equipmentType,

@@ -11,6 +11,7 @@ import org.springframework.ai.chat.messages.SystemMessage;
 import org.springframework.ai.chat.messages.UserMessage;
 import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,7 +26,7 @@ public class AssetClassificationService {
 
             Required format:
             {
-              "assetClass": "<COMPUTER_EQUIPMENT|FURNITURE|LEASEHOLD_IMPROVEMENT|BUILDING_IMPROVEMENT|VEHICLE|OTHER>",
+              "assetClass": "<COMPUTER_EQUIPMENT|FURNITURE|LEASEHOLD_IMPROVEMENT|BUILDING_IMPROVEMENT|VEHICLE|LAND|BUILDING|MACHINERY|OTHER>",
               "glCode": "<GL code>",
               "usefulLifeYears": <integer>,
               "confidence": <number between 0.0 and 1.0>,
@@ -38,6 +39,9 @@ public class AssetClassificationService {
             - LEASEHOLD_IMPROVEMENT → glCode=1710, usefulLifeYears=15
             - BUILDING_IMPROVEMENT  → glCode=1720, usefulLifeYears=39
             - VEHICLE             → glCode=1630, usefulLifeYears=5
+            - LAND                → glCode=1500, usefulLifeYears=0 (not depreciated)
+            - BUILDING            → glCode=1510, usefulLifeYears=39
+            - MACHINERY           → glCode=1640, usefulLifeYears=7
             - OTHER               → glCode=1699, usefulLifeYears=10
             """;
 
@@ -54,6 +58,7 @@ public class AssetClassificationService {
         }
     }
 
+    @Cacheable(value = "classifications", key = "#documentText")
     public ClassificationSuggestion suggestFromInvoiceText(String documentText) {
         if (chatClient != null) {
             try {
@@ -117,6 +122,16 @@ public class AssetClassificationService {
                 || text.contains("hvac")) {
             return new ClassificationSuggestion(AssetClass.BUILDING_IMPROVEMENT, "1720", 39, 0.80,
                     "Detected building improvement terms from invoice text");
+        }
+        if (text.contains("land") || text.contains("acreage") || text.contains("lot")
+                || text.contains("parcel")) {
+            return new ClassificationSuggestion(AssetClass.LAND, "1500", 0, 0.85,
+                    "Detected land / real property terms from invoice text");
+        }
+        if (text.contains("machinery") || text.contains("cnc") || text.contains("press")
+                || text.contains("lathe") || text.contains("conveyor")) {
+            return new ClassificationSuggestion(AssetClass.MACHINERY, "1640", 7, 0.83,
+                    "Detected machinery / manufacturing equipment keywords from invoice text");
         }
         if (text.contains("vehicle") || text.contains("truck") || text.contains("van")
                 || text.contains("car") || text.contains("automobile")) {

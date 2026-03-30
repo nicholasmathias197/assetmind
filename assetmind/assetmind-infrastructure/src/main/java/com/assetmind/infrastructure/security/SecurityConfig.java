@@ -39,11 +39,13 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authz -> authz
                         .requestMatchers("/actuator/**").permitAll()
+                        .requestMatchers("/swagger-ui/**", "/swagger-ui.html", "/v3/api-docs/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/v1/auth/login", "/api/v1/auth/register", "/api/v1/auth/refresh").permitAll()
                         .requestMatchers("/api/v1/assets/**").authenticated()
                         .requestMatchers("/api/v1/depreciation/**").authenticated()
                         .requestMatchers("/api/v1/classification/**").authenticated()
                         .requestMatchers("/api/v1/tax-strategy/**").authenticated()
+                        .requestMatchers("/api/v1/breakout/**").authenticated()
                         .anyRequest().authenticated()
                 );
 

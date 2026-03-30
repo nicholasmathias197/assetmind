@@ -32,7 +32,7 @@ public class BreakoutSuggestionService {
               "components": [
                 {
                   "description": "<component name>",
-                  "assetClass": "<COMPUTER_EQUIPMENT|FURNITURE|LEASEHOLD_IMPROVEMENT|BUILDING_IMPROVEMENT|VEHICLE|OTHER>",
+                  "assetClass": "<COMPUTER_EQUIPMENT|FURNITURE|LEASEHOLD_IMPROVEMENT|BUILDING_IMPROVEMENT|VEHICLE|LAND|BUILDING|MACHINERY|OTHER>",
                   "costPercentage": <percentage of total cost, number between 0 and 100>,
                   "usefulLifeYears": <integer>
                 }
@@ -43,7 +43,7 @@ public class BreakoutSuggestionService {
             
             Rules:
             - Component costPercentage values MUST sum to exactly 100.
-            - Use realistic useful life values: COMPUTER_EQUIPMENT=5, FURNITURE=7, LEASEHOLD_IMPROVEMENT=15, BUILDING_IMPROVEMENT=15-39, VEHICLE=5, OTHER=10.
+            - Use realistic useful life values: COMPUTER_EQUIPMENT=5, FURNITURE=7, LEASEHOLD_IMPROVEMENT=15, BUILDING_IMPROVEMENT=15-39, BUILDING=39, VEHICLE=5, LAND=0 (not depreciated), MACHINERY=7, OTHER=10.
             - Identify as many distinct depreciable components as appropriate (typically 3-10).
             - Group minor items when individual breakdown is not practical.
             """;
@@ -113,13 +113,13 @@ public class BreakoutSuggestionService {
         if (text.contains("property") || text.contains("building") || text.contains("commercial")
                 || text.contains("warehouse") || text.contains("office building")) {
             return new BreakoutSuggestion(List.of(
-                    new ComponentSuggestion("Building structure", "BUILDING_IMPROVEMENT", 50, 39),
+                    new ComponentSuggestion("Building structure", "BUILDING", 50, 39),
+                    new ComponentSuggestion("Land", "LAND", 15, 0),
                     new ComponentSuggestion("Roof", "BUILDING_IMPROVEMENT", 8, 20),
                     new ComponentSuggestion("HVAC system", "BUILDING_IMPROVEMENT", 10, 15),
                     new ComponentSuggestion("Electrical system", "BUILDING_IMPROVEMENT", 8, 15),
                     new ComponentSuggestion("Plumbing", "BUILDING_IMPROVEMENT", 5, 15),
-                    new ComponentSuggestion("Parking / paving", "LEASEHOLD_IMPROVEMENT", 4, 15),
-                    new ComponentSuggestion("Land", "OTHER", 15, 0)
+                    new ComponentSuggestion("Parking / paving", "LEASEHOLD_IMPROVEMENT", 4, 15)
             ), 0.70, "Keyword-based commercial property breakout template", "RULE_FALLBACK");
         }
 
