@@ -322,6 +322,12 @@ textarea {
   border: 1px solid #fecaca;
 }
 
+.alert-success {
+  background: #ecfdf5;
+  color: #065f46;
+  border: 1px solid #a7f3d0;
+}
+
 /* ── Card ── */
 .card {
   background: var(--bg-card);
@@ -402,6 +408,11 @@ tr:hover td {
   background: var(--primary-light);
   color: var(--primary);
   white-space: nowrap;
+}
+
+.badge-admin {
+  background: #dcfce7;
+  color: #166534;
 }
 
 /* ── Filters ── */
@@ -616,6 +627,59 @@ tr:hover td {
 .empty-state p {
   margin-bottom: 16px;
   font-size: 1rem;
+}
+
+.access-denied-card {
+  max-width: 560px;
+}
+
+.admin-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+  gap: 16px;
+}
+
+.admin-user-card {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.admin-user-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.admin-user-header h3 {
+  font-size: 1.1rem;
+  margin-bottom: 2px;
+}
+
+.admin-user-meta {
+  font-size: 0.8rem;
+  word-break: break-all;
+}
+
+.admin-features {
+  border-top: 1px solid var(--border);
+  padding-top: 12px;
+}
+
+.admin-section-title {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 8px;
+}
+
+.admin-feature-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 4px 10px;
 }
 
 /* ── Loading ── */
@@ -882,5 +946,13 @@ tr:hover td {
   .breakout-remove {
     margin-top: 0;
     align-self: flex-end;
+  }
+
+  .admin-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-feature-list {
+    grid-template-columns: 1fr;
   }
 }

@@ -26,6 +26,9 @@ public class UserEntity {
     @Column(name = "role", nullable = false, length = 64)
     private String role = "USER";
 
+    @Column(name = "feature_access", length = 1024)
+    private String featureAccess = "";
+
     @Column(name = "enabled", nullable = false)
     private boolean enabled = true;
 
@@ -70,6 +73,14 @@ public class UserEntity {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public String getFeatureAccess() {
+        return featureAccess;
+    }
+
+    public void setFeatureAccess(String featureAccess) {
+        this.featureAccess = featureAccess;
     }
 
     public boolean isEnabled() {

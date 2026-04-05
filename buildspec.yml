@@ -1,0 +1,104 @@
+# =============================================================================
+# buildspec.yml — Main CI/CD Build Specification for AssetMind
+# =============================================================================
+# Used by: AWS CodeBuild project "AssetMind_Build"
+# Triggered by: CodePipeline stage "Build" after Source and Code-Analysis pass
+#
+# What this file does end-to-end:
+#   1. Installs all required runtimes and tools (Java 21, Node 20, Maven, Terraform)
+#   2. Compiles the Spring Boot backend into a runnable JAR (multi-module Maven)
+#   3. Builds the React frontend into static HTML/CSS/JS files
+#      - Dynamically injects the live EC2 public IP as the API base URL at build time
+#   4. Uploads the JAR to S3 so EC2 can pull it on restart
+#   5. Syncs the React build output to the S3 static website bucket
+#   6. Runs Terraform to ensure all AWS infrastructure matches main.tf
+#   7. Sends an SSM command to the EC2 instance to restart the Spring Boot service
+# =============================================================================
+
+version: 0.2
+
+phases:
+
+  # ---------------------------------------------------------------------------
+  # INSTALL PHASE
+  # ---------------------------------------------------------------------------
+  install:
+    runtime-versions:
+      java: corretto21
+      nodejs: 20
+    commands:
+      - echo '========== INSTALLING DEPENDENCIES =========='
+      - dnf install -y maven nodejs npm
+      - dnf config-manager --add-repo https://rpm.releases.hashicorp.com/AmazonLinux/hashicorp.repo
+      - dnf install -y terraform
+
+  # ---------------------------------------------------------------------------
+  # PRE_BUILD PHASE
+  # Compiles both the backend and frontend before uploading anything to AWS.
+  # ---------------------------------------------------------------------------
+  pre_build:
+    commands:
+      - echo '========== BUILDING SPRING BOOT JAR =========='
+      - java -version
+
+      # AssetMind is a multi-module Maven project.
+      # Build from the assetmind/ directory; the runnable JAR is produced by
+      # the assetmind-application module.
+      - cd assetmind
+      - mvn clean package -DskipTests
+      - cd ..
+
+      - echo '========== BUILDING REACT FRONTEND =========='
+      - cd frontend
+      - npm install
+
+      # Inject the live EC2 public IP as the API base URL at build time.
+      # The frontend uses VITE_API_BASE_URL to know where to send API requests.
+      - VITE_API_BASE_URL=http://$(aws ec2 describe-instances --instance-ids $(aws ec2 describe-instances --filters "Name=tag:Name,Values=assetmind-backend" "Name=instance-state-name,Values=running" --query "Reservations[0].Instances[0].InstanceId" --output text --region us-east-2) --query "Reservations[0].Instances[0].PublicIpAddress" --output text --region us-east-2):8080/api/v1 npm run build
+      - cd ..
+
+  # ---------------------------------------------------------------------------
+  # BUILD PHASE
+  # Uploads artifacts to S3, applies Terraform, and restarts the backend.
+  # ---------------------------------------------------------------------------
+  build:
+    commands:
+      - echo '========== UPLOADING JAR TO S3 =========='
+
+      # Upload the runnable Spring Boot JAR to S3.
+      # AssetMind uses Flyway — DB migrations run automatically on app startup.
+      - aws s3 cp assetmind/assetmind-application/target/assetmind-application-1.0.0.jar s3://assetmind-frontend-911784620581/app/assetmind-application.jar
+
+      - echo '========== UPLOADING REACT BUILD TO S3 =========='
+      - aws s3 sync frontend/dist s3://assetmind-frontend-911784620581 --delete --exclude "terraform/*" --exclude "app/*" --exclude "tfstate"
+
+      - echo '========== TERRAFORM APPLY =========='
+      - terraform init
+
+      # Import existing resources into Terraform state (idempotent — || true)
+      - terraform import -input=false aws_security_group.spring_boot_sg sg-PLACEHOLDER || true
+      - terraform import -input=false aws_iam_role.ec2_role assetmind-ec2-role || true
+      - terraform import -input=false aws_iam_instance_profile.ec2_profile assetmind-ec2-profile || true
+      - terraform import -input=false aws_iam_role_policy_attachment.ec2_s3 assetmind-ec2-role/arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess || true
+      - terraform import -input=false aws_iam_role_policy_attachment.ec2_ssm assetmind-ec2-role/arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore || true
+      - terraform import -input=false aws_s3_bucket.react_frontend assetmind-frontend-911784620581 || true
+      - terraform import -input=false aws_s3_bucket_website_configuration.frontend assetmind-frontend-911784620581 || true
+      - terraform import -input=false aws_s3_bucket_public_access_block.frontend assetmind-frontend-911784620581 || true
+      - terraform import -input=false aws_s3_bucket_policy.frontend assetmind-frontend-911784620581 || true
+      - CURRENT_INSTANCE_ID=$(aws ec2 describe-instances --filters "Name=tag:Name,Values=assetmind-backend" "Name=instance-state-name,Values=running" --query "Reservations[0].Instances[0].InstanceId" --output text --region us-east-2)
+      - terraform import -input=false aws_instance.spring_boot_app $CURRENT_INSTANCE_ID || true
+      - terraform import -input=false aws_sns_topic.alerts arn:aws:sns:us-east-2:911784620581:assetmind-alerts || true
+      - SNS_SUB_ARN=$(aws sns list-subscriptions-by-topic --topic-arn arn:aws:sns:us-east-2:911784620581:assetmind-alerts --query "Subscriptions[?Protocol=='email'].SubscriptionArn" --output text --region us-east-2) && terraform import -input=false aws_sns_topic_subscription.email $SNS_SUB_ARN || true
+      - terraform import -input=false aws_cloudwatch_metric_alarm.ec2_cpu_high assetmind-cpu-high || true
+      - terraform import -input=false aws_cloudwatch_metric_alarm.ec2_status_check assetmind-status-check || true
+      - terraform import -input=false aws_budgets_budget.monthly 911784620581:assetmind-monthly-budget || true
+
+      - terraform apply -auto-approve -input=false
+
+      - echo '========== RESTARTING SPRING BOOT ON EC2 =========='
+      - chmod +x scripts/ssm-restart.sh
+      - bash scripts/ssm-restart.sh || true
+
+  post_build:
+    commands:
+      - echo '========== DEPLOY COMPLETE =========='

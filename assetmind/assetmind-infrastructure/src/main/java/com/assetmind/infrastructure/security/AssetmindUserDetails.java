@@ -5,7 +5,9 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 public class AssetmindUserDetails implements UserDetails {
 
@@ -13,6 +15,7 @@ public class AssetmindUserDetails implements UserDetails {
     private final String username;
     private final String password;
     private final String role;
+    private final Set<String> featureAccess;
     private final boolean enabled;
 
     public AssetmindUserDetails(UserEntity user) {
@@ -20,6 +23,16 @@ public class AssetmindUserDetails implements UserDetails {
         this.username = user.getUsername();
         this.password = user.getPassword();
         this.role = user.getRole();
+        this.featureAccess = new LinkedHashSet<>();
+        this.enabled = user.isEnabled();
+    }
+
+    public AssetmindUserDetails(UserEntity user, Collection<String> featureAccess) {
+        this.id = user.getId();
+        this.username = user.getUsername();
+        this.password = user.getPassword();
+        this.role = user.getRole();
+        this.featureAccess = new LinkedHashSet<>(featureAccess);
         this.enabled = user.isEnabled();
     }
 
@@ -33,7 +46,12 @@ public class AssetmindUserDetails implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority("ROLE_" + role.toUpperCase()));
+        LinkedHashSet<GrantedAuthority> authorities = new LinkedHashSet<>();
+        authorities.add(new SimpleGrantedAuthority("ROLE_" + role.toUpperCase()));
+        for (String feature : featureAccess) {
+            authorities.add(new SimpleGrantedAuthority("FEATURE_" + feature.toUpperCase()));
+        }
+        return authorities;
     }
 
     @Override

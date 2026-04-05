@@ -1,0 +1,32 @@
+# =============================================================================
+# buildspec-sonar.yml — SonarCloud Analysis Buildspec for AssetMind
+# =============================================================================
+
+version: 0.2
+
+env:
+  parameter-store:
+    SONAR_TOKEN: /sonarcloud/token
+
+phases:
+  install:
+    runtime-versions:
+      java: corretto21
+    commands:
+      - dnf install -y maven
+      - java -version
+      - mvn -version
+
+  pre_build:
+    commands:
+      - echo "Compiling for SonarCloud analysis..."
+      - cd assetmind && mvn clean package jacoco:report -DskipTests=false
+
+  build:
+    commands:
+      - echo "Running SonarCloud analysis..."
+      - cd assetmind && mvn sonar:sonar -Dsonar.projectKey=nicholasmathias197_assetmind -Dsonar.organization=nicholasmathias197 -Dsonar.host.url=https://sonarcloud.io -Dsonar.token=$SONAR_TOKEN -Dsonar.coverage.jacoco.xmlReportPaths=assetmind-application/target/site/jacoco/jacoco.xml || true
+
+  post_build:
+    commands:
+      - echo "SonarCloud analysis complete"

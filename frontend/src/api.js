@@ -1,7 +1,39 @@
-const API_BASE = '/api/v1';
+const API_BASE = import.meta.env.VITE_API_BASE_URL || '/api/v1';
+
+const FEATURE_FLAGS = ['ASSETS', 'DEPRECIATION', 'TAX_STRATEGY', 'CLASSIFICATION', 'BREAKOUT'];
 
 function getToken() {
   return localStorage.getItem('accessToken');
+}
+
+function decodeJwtPayload(token) {
+  if (!token || token.split('.').length < 2) return null;
+  try {
+    const base64 = token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/');
+    const padded = `${base64}${'='.repeat((4 - (base64.length % 4)) % 4)}`;
+    const json = atob(padded);
+    return JSON.parse(json);
+  } catch {
+    return null;
+  }
+}
+
+function getAccessContext() {
+  const token = getToken();
+  const claims = decodeJwtPayload(token);
+  const role = (claims?.role || 'USER').toUpperCase();
+  const rawFeatures = Array.isArray(claims?.featureAccess) ? claims.featureAccess : [];
+  const features = rawFeatures
+    .filter((item) => typeof item === 'string' && item.trim() !== '')
+    .map((item) => item.trim().toUpperCase());
+
+  return {
+    userId: claims?.sub || null,
+    username: claims?.username || null,
+    role,
+    isAdmin: role === 'ADMIN',
+    features,
+  };
 }
 
 function setTokens(accessToken, refreshToken) {
@@ -114,6 +146,13 @@ export const api = {
   },
 
   isAuthenticated: () => !!getToken(),
+  getAccessContext,
+  hasFeatureAccess: (feature) => {
+    const context = getAccessContext();
+    if (context.isAdmin) return true;
+    return context.features.includes(String(feature || '').toUpperCase());
+  },
+  listFeatureFlags: () => FEATURE_FLAGS,
 
   // Assets
   getAssets: () => request('/assets'),
@@ -182,4 +221,12 @@ export const api = {
 
   // Health
   health: () => fetch('/actuator/health').then((r) => r.json()),
+
+  // Admin
+  listUsers: () => request('/admin/users'),
+  updateUserAccess: (userId, payload) =>
+    request(`/admin/users/${encodeURIComponent(userId)}/access`, {
+      method: 'PUT',
+      body: JSON.stringify(payload),
+    }),
 };

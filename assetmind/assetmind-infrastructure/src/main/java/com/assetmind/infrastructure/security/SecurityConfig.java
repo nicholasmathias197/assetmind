@@ -40,12 +40,13 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authz -> authz
                         .requestMatchers("/actuator/**").permitAll()
                         .requestMatchers("/swagger-ui/**", "/swagger-ui.html", "/v3/api-docs/**").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/api/v1/auth/login", "/api/v1/auth/register", "/api/v1/auth/refresh").permitAll()
-                        .requestMatchers("/api/v1/assets/**").authenticated()
-                        .requestMatchers("/api/v1/depreciation/**").authenticated()
-                        .requestMatchers("/api/v1/classification/**").authenticated()
-                        .requestMatchers("/api/v1/tax-strategy/**").authenticated()
-                        .requestMatchers("/api/v1/breakout/**").authenticated()
+                        .requestMatchers(HttpMethod.POST, "/api/v1/auth/login", "/api/v1/auth/register", "/api/v1/auth/refresh", "/api/v1/auth/bootstrap-admin").permitAll()
+                    .requestMatchers("/api/v1/admin/**").hasAuthority("ROLE_ADMIN")
+                    .requestMatchers("/api/v1/assets/**").hasAnyAuthority("ROLE_ADMIN", "FEATURE_ASSETS")
+                    .requestMatchers("/api/v1/depreciation/**").hasAnyAuthority("ROLE_ADMIN", "FEATURE_DEPRECIATION")
+                    .requestMatchers("/api/v1/classification/**").hasAnyAuthority("ROLE_ADMIN", "FEATURE_CLASSIFICATION")
+                    .requestMatchers("/api/v1/tax-strategy/**").hasAnyAuthority("ROLE_ADMIN", "FEATURE_TAX_STRATEGY")
+                    .requestMatchers("/api/v1/breakout/**").hasAnyAuthority("ROLE_ADMIN", "FEATURE_BREAKOUT")
                         .anyRequest().authenticated()
                 );
 

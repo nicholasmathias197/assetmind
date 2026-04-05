@@ -9,17 +9,32 @@ import Depreciation from './pages/Depreciation';
 import TaxStrategy from './pages/TaxStrategy';
 import Classification from './pages/Classification';
 import Breakout from './pages/Breakout';
+import AccessDenied from './pages/AccessDenied';
+import AdminDashboard from './pages/AdminDashboard';
 
 function ProtectedRoute({ children, authed }) {
   return authed ? children : <Navigate to="/login" replace />;
 }
 
+function FeatureRoute({ children, authed, feature }) {
+  if (!authed) return <Navigate to="/login" replace />;
+  if (!api.hasFeatureAccess(feature)) return <Navigate to="/access-denied" replace />;
+  return children;
+}
+
+function AdminRoute({ children, authed }) {
+  if (!authed) return <Navigate to="/login" replace />;
+  if (!api.getAccessContext().isAdmin) return <Navigate to="/access-denied" replace />;
+  return children;
+}
+
 export default function App() {
   const [authed, setAuthed] = useState(api.isAuthenticated());
+  const accessContext = api.getAccessContext();
 
   return (
     <div className="app">
-      {authed && <Navbar onLogout={() => setAuthed(false)} />}
+      {authed && <Navbar onLogout={() => setAuthed(false)} accessContext={accessContext} />}
       <main className={authed ? 'main-content' : ''}>
         <Routes>
           <Route path="/login" element={
@@ -29,19 +44,25 @@ export default function App() {
             authed ? <Navigate to="/" replace /> : <Register onLogin={() => setAuthed(true)} />
           } />
           <Route path="/" element={
-            <ProtectedRoute authed={authed}><Assets /></ProtectedRoute>
+            <FeatureRoute authed={authed} feature="ASSETS"><Assets /></FeatureRoute>
           } />
           <Route path="/depreciation" element={
-            <ProtectedRoute authed={authed}><Depreciation /></ProtectedRoute>
+            <FeatureRoute authed={authed} feature="DEPRECIATION"><Depreciation /></FeatureRoute>
           } />
           <Route path="/tax-strategy" element={
-            <ProtectedRoute authed={authed}><TaxStrategy /></ProtectedRoute>
+            <FeatureRoute authed={authed} feature="TAX_STRATEGY"><TaxStrategy /></FeatureRoute>
           } />
           <Route path="/classification" element={
-            <ProtectedRoute authed={authed}><Classification /></ProtectedRoute>
+            <FeatureRoute authed={authed} feature="CLASSIFICATION"><Classification /></FeatureRoute>
           } />
           <Route path="/breakout" element={
-            <ProtectedRoute authed={authed}><Breakout /></ProtectedRoute>
+            <FeatureRoute authed={authed} feature="BREAKOUT"><Breakout /></FeatureRoute>
+          } />
+          <Route path="/admin" element={
+            <AdminRoute authed={authed}><AdminDashboard /></AdminRoute>
+          } />
+          <Route path="/access-denied" element={
+            <ProtectedRoute authed={authed}><AccessDenied /></ProtectedRoute>
           } />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>

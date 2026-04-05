@@ -14,6 +14,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -34,10 +35,11 @@ public class JwtTokenProvider {
         this.refreshTokenExpiration = refreshTokenExpiration;
     }
 
-    public String generateAccessToken(String userId, String username, String role) {
+    public String generateAccessToken(String userId, String username, String role, List<String> featureAccess) {
         Map<String, Object> claims = new HashMap<>();
         claims.put("username", username);
         claims.put("role", role);
+        claims.put("featureAccess", featureAccess);
         return createToken(claims, userId, accessTokenExpiration);
     }
 
@@ -64,6 +66,18 @@ public class JwtTokenProvider {
 
     public String getRoleFromToken(String token) {
         return (String) extractAllClaims(token).get("role");
+    }
+
+    @SuppressWarnings("unchecked")
+    public List<String> getFeatureAccessFromToken(String token) {
+        Object featureAccess = extractAllClaims(token).get("featureAccess");
+        if (featureAccess instanceof List<?>) {
+            return ((List<?>) featureAccess).stream()
+                    .filter(String.class::isInstance)
+                    .map(String.class::cast)
+                    .toList();
+        }
+        return List.of();
     }
 
     public boolean validateToken(String token) {

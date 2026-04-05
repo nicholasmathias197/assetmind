@@ -53,3 +53,6 @@ jwt:
   secret: ${JWT_SECRET:assetmind-local-jwt-secret-for-hs512-development-only-change-this-before-production-2026}
   access-token-expiration: ${JWT_ACCESS_TOKEN_EXPIRATION:3600000}
   refresh-token-expiration: ${JWT_REFRESH_TOKEN_EXPIRATION:86400000}
+
+assetmind:
+  bootstrap-secret: ${BOOTSTRAP_SECRET:changeme-bootstrap-secret}

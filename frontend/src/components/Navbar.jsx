@@ -1,7 +1,7 @@
 import { NavLink, useNavigate } from 'react-router-dom';
 import { api } from '../api';
 
-export default function Navbar({ onLogout }) {
+export default function Navbar({ onLogout, accessContext }) {
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -21,11 +21,12 @@ export default function Navbar({ onLogout }) {
         <span>AssetMind</span>
       </div>
       <div className="navbar-links">
-        <NavLink to="/" end>Assets</NavLink>
-        <NavLink to="/depreciation">Depreciation</NavLink>
-        <NavLink to="/tax-strategy">Tax Strategy</NavLink>
-        <NavLink to="/classification">Classification</NavLink>
-        <NavLink to="/breakout">Breakout</NavLink>
+        {api.hasFeatureAccess('ASSETS') && <NavLink to="/" end>Assets</NavLink>}
+        {api.hasFeatureAccess('DEPRECIATION') && <NavLink to="/depreciation">Depreciation</NavLink>}
+        {api.hasFeatureAccess('TAX_STRATEGY') && <NavLink to="/tax-strategy">Tax Strategy</NavLink>}
+        {api.hasFeatureAccess('CLASSIFICATION') && <NavLink to="/classification">Classification</NavLink>}
+        {api.hasFeatureAccess('BREAKOUT') && <NavLink to="/breakout">Breakout</NavLink>}
+        {accessContext?.isAdmin && <NavLink to="/admin">Admin</NavLink>}
       </div>
       <button className="btn btn-sm btn-secondary" onClick={handleLogout}>
         Sign Out

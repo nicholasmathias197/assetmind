@@ -1,6 +1,8 @@
 package com.assetmind.application;
 
 import com.assetmind.infrastructure.security.JwtTokenProvider;
+import com.assetmind.infrastructure.security.SpringDataUserJpaRepository;
+import com.assetmind.infrastructure.security.UserEntity;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -17,6 +19,8 @@ import org.springframework.test.web.servlet.MvcResult;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.util.List;
+import java.util.UUID;
 
 import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -37,11 +41,14 @@ class ControllerIntegrationTest {
     @Autowired
     private JwtTokenProvider jwtTokenProvider;
 
+        @Autowired
+        private SpringDataUserJpaRepository userRepository;
+
     private String token;
 
     @BeforeEach
     void setUp() {
-        token = jwtTokenProvider.generateAccessToken("test-user-id", "testuser", "USER");
+                token = jwtTokenProvider.generateAccessToken("test-admin-id", "testadmin", "ADMIN", List.of());
     }
 
     // =====================================================================
@@ -487,6 +494,166 @@ class ControllerIntegrationTest {
                             .contentType(MediaType.APPLICATION_JSON)
                             .content(body))
                     .andExpect(status().isUnauthorized());
+        }
+
+        @Test
+        void bootstrapAdmin_createsAdminAndReturnsToken() throws Exception {
+            userRepository.findAll().stream()
+                    .filter(user -> "ADMIN".equalsIgnoreCase(user.getRole()))
+                    .forEach(userRepository::delete);
+
+            String body = """
+                    {
+                      "username": "bootstrapadmin",
+                      "password": "SecureP@ss123",
+                      "email": "bootstrap@assetmind.test"
+                    }
+                    """;
+
+            mockMvc.perform(post("/api/v1/auth/bootstrap-admin")
+                            .header("X-Bootstrap-Key", "test-bootstrap-secret")
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content(body))
+                    .andExpect(status().isCreated())
+                    .andExpect(jsonPath("$.accessToken").isString())
+                    .andExpect(jsonPath("$.tokenType").value("Bearer"));
+
+            org.junit.jupiter.api.Assertions.assertTrue(
+                    userRepository.findByUsername("bootstrapadmin")
+                            .map(user -> "ADMIN".equalsIgnoreCase(user.getRole()))
+                            .orElse(false)
+            );
+        }
+
+        @Test
+        void bootstrapAdmin_rejectedWhenAdminAlreadyExists() throws Exception {
+            userRepository.findAll().stream()
+                    .filter(user -> "ADMIN".equalsIgnoreCase(user.getRole()))
+                    .forEach(userRepository::delete);
+
+            String first = """
+                    {
+                      "username": "bootstrapadmin1",
+                      "password": "SecureP@ss123",
+                      "email": "bootstrap1@assetmind.test"
+                    }
+                    """;
+
+            mockMvc.perform(post("/api/v1/auth/bootstrap-admin")
+                            .header("X-Bootstrap-Key", "test-bootstrap-secret")
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content(first))
+                    .andExpect(status().isCreated());
+
+            String second = """
+                    {
+                      "username": "bootstrapadmin2",
+                      "password": "SecureP@ss123",
+                      "email": "bootstrap2@assetmind.test"
+                    }
+                    """;
+
+            mockMvc.perform(post("/api/v1/auth/bootstrap-admin")
+                            .header("X-Bootstrap-Key", "test-bootstrap-secret")
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content(second))
+                    .andExpect(status().isConflict());
+        }
+
+        @Test
+        void bootstrapAdmin_rejectedWithInvalidKey() throws Exception {
+            userRepository.findAll().stream()
+                    .filter(user -> "ADMIN".equalsIgnoreCase(user.getRole()))
+                    .forEach(userRepository::delete);
+
+            String body = """
+                    {
+                      "username": "badkeyadmin",
+                      "password": "SecureP@ss123",
+                      "email": "badkey@assetmind.test"
+                    }
+                    """;
+
+            mockMvc.perform(post("/api/v1/auth/bootstrap-admin")
+                            .header("X-Bootstrap-Key", "wrong-secret")
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content(body))
+                    .andExpect(status().isForbidden());
+        }
+    }
+
+    @Nested
+    class AdminAccessControlEndpoints {
+
+        @Test
+        void adminCanUpdateUserFeatureAccess() throws Exception {
+            UserEntity user = new UserEntity();
+            user.setId(UUID.randomUUID().toString());
+            user.setUsername("access-managed-user");
+            user.setPassword("ignored-in-this-test");
+            user.setEmail("managed@assetmind.test");
+            user.setRole("USER");
+            user.setFeatureAccess("");
+            user.setEnabled(true);
+            userRepository.save(user);
+
+            String body = """
+                    {
+                      "role": "USER",
+                      "enabled": true,
+                      "featureAccess": ["ASSETS", "DEPRECIATION"]
+                    }
+                    """;
+
+            mockMvc.perform(put("/api/v1/admin/users/{userId}/access", user.getId())
+                            .header("Authorization", "Bearer " + token)
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content(body))
+                    .andExpect(status().isOk())
+                    .andExpect(jsonPath("$.username").value("access-managed-user"))
+                    .andExpect(jsonPath("$.featureAccess", hasItems("ASSETS", "DEPRECIATION")));
+        }
+
+        @Test
+        void nonAdminCannotUseAdminEndpoints() throws Exception {
+            String userToken = jwtTokenProvider.generateAccessToken(
+                    "user-regular-id",
+                    "regularuser",
+                    "USER",
+                    List.of("ASSETS")
+            );
+
+            mockMvc.perform(get("/api/v1/admin/users")
+                            .header("Authorization", "Bearer " + userToken))
+                    .andExpect(status().isForbidden());
+        }
+
+        @Test
+        void userWithoutAssetsFeatureCannotAccessAssetsEndpoint() throws Exception {
+            String userToken = jwtTokenProvider.generateAccessToken(
+                    "user-no-assets-id",
+                    "userwithoutassets",
+                    "USER",
+                    List.of("DEPRECIATION")
+            );
+
+            mockMvc.perform(get("/api/v1/assets")
+                            .header("Authorization", "Bearer " + userToken))
+                    .andExpect(status().isForbidden());
+        }
+
+        @Test
+        void userWithAssetsFeatureCanAccessAssetsEndpoint() throws Exception {
+            String userToken = jwtTokenProvider.generateAccessToken(
+                    "user-assets-id",
+                    "userwithassets",
+                    "USER",
+                    List.of("ASSETS")
+            );
+
+            mockMvc.perform(get("/api/v1/assets")
+                            .header("Authorization", "Bearer " + userToken))
+                    .andExpect(status().isOk());
         }
     }
 

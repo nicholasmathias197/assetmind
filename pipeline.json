@@ -1,0 +1,119 @@
+{
+  "pipeline": {
+    "name": "AssetMindDeployToAWS",
+    "roleArn": "arn:aws:iam::911784620581:role/CodePipelineStarterTemplate-Terraf-CodePipelineRole-rJzZGKoJiXlA",
+    "artifactStore": {
+      "type": "S3",
+      "location": "codepipelinestartertempla-codepipelineartifactsbuc-edahnyzoowrf"
+    },
+    "stages": [
+      {
+        "name": "Source",
+        "actions": [
+          {
+            "name": "CodeConnections",
+            "actionTypeId": {
+              "category": "Source",
+              "owner": "AWS",
+              "provider": "CodeStarSourceConnection",
+              "version": "1"
+            },
+            "runOrder": 1,
+            "configuration": {
+              "BranchName": "main",
+              "ConnectionArn": "arn:aws:codeconnections:us-east-2:911784620581:connection/7509be0a-6124-47c5-ba70-41350524bfbc",
+              "FullRepositoryId": "nicholasmathias197/assetmind"
+            },
+            "outputArtifacts": [
+              {
+                "name": "SourceOutput"
+              }
+            ],
+            "inputArtifacts": []
+          }
+        ],
+        "onFailure": {
+          "result": "RETRY",
+          "retryConfiguration": {
+            "retryMode": "ALL_ACTIONS"
+          }
+        }
+      },
+      {
+        "name": "Code-Analysis",
+        "actions": [
+          {
+            "name": "SonarCloud-Analysis",
+            "actionTypeId": {
+              "category": "Build",
+              "owner": "AWS",
+              "provider": "CodeBuild",
+              "version": "1"
+            },
+            "runOrder": 1,
+            "configuration": {
+              "ProjectName": "AssetMind_SonarCloud_Analysis"
+            },
+            "outputArtifacts": [],
+            "inputArtifacts": [
+              {
+                "name": "SourceOutput"
+              }
+            ],
+            "region": "us-east-2"
+          }
+        ]
+      },
+      {
+        "name": "Build",
+        "actions": [
+          {
+            "name": "Terraform-Build",
+            "actionTypeId": {
+              "category": "Build",
+              "owner": "AWS",
+              "provider": "CodeBuild",
+              "version": "1"
+            },
+            "runOrder": 1,
+            "configuration": {
+              "BuildspecOverride": "buildspec.yml",
+              "ProjectName": "AssetMind_Build"
+            },
+            "outputArtifacts": [
+              {
+                "name": "BuildArt"
+              }
+            ],
+            "inputArtifacts": [
+              {
+                "name": "SourceOutput"
+              }
+            ],
+            "region": "us-east-2"
+          }
+        ]
+      }
+    ],
+    "version": 1,
+    "executionMode": "QUEUED",
+    "pipelineType": "V2",
+    "triggers": [
+      {
+        "providerType": "CodeStarSourceConnection",
+        "gitConfiguration": {
+          "sourceActionName": "CodeConnections",
+          "push": [
+            {
+              "branches": {
+                "includes": [
+                  "main"
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}
