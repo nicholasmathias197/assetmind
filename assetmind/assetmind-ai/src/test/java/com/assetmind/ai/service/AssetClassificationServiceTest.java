@@ -114,6 +114,64 @@ class AssetClassificationServiceTest {
         assertEquals(AssetClass.OTHER, result.assetClass());
     }
 
+    @Test
+    void keywordFallback_detectsLand() {
+        AssetClassificationService service = new AssetClassificationService(null);
+
+        ClassificationSuggestion result = service.suggestFromInvoiceText("Vacant land parcel purchase 2.5 acres");
+
+        assertEquals(AssetClass.LAND, result.assetClass());
+        assertEquals("1500", result.glCode());
+        assertEquals(0, result.usefulLifeYears());
+    }
+
+    @Test
+    void keywordFallback_detectsMachinery() {
+        AssetClassificationService service = new AssetClassificationService(null);
+
+        ClassificationSuggestion result = service.suggestFromInvoiceText("CNC milling machinery for production line");
+
+        assertEquals(AssetClass.MACHINERY, result.assetClass());
+        assertEquals("1640", result.glCode());
+        assertEquals(7, result.usefulLifeYears());
+    }
+
+    @Test
+    void keywordFallback_detectsMonitorAsComputerEquipment() {
+        AssetClassificationService service = new AssetClassificationService(null);
+
+        ClassificationSuggestion result = service.suggestFromInvoiceText("Dell 32-inch monitor for design team");
+
+        assertEquals(AssetClass.COMPUTER_EQUIPMENT, result.assetClass());
+    }
+
+    @Test
+    void keywordFallback_detectsPrinterAsComputerEquipment() {
+        AssetClassificationService service = new AssetClassificationService(null);
+
+        ClassificationSuggestion result = service.suggestFromInvoiceText("HP LaserJet Pro printer");
+
+        assertEquals(AssetClass.COMPUTER_EQUIPMENT, result.assetClass());
+    }
+
+    @Test
+    void keywordFallback_detectsCabinetAsFurniture() {
+        AssetClassificationService service = new AssetClassificationService(null);
+
+        ClassificationSuggestion result = service.suggestFromInvoiceText("Filing cabinet for records room");
+
+        assertEquals(AssetClass.FURNITURE, result.assetClass());
+    }
+
+    @Test
+    void keywordFallback_detectsConveyorAsMachinery() {
+        AssetClassificationService service = new AssetClassificationService(null);
+
+        ClassificationSuggestion result = service.suggestFromInvoiceText("Conveyor belt system for warehouse");
+
+        assertEquals(AssetClass.MACHINERY, result.assetClass());
+    }
+
     // -------------------------------------------------------------------------
     // Mocked AI path tests (chatClient != null)
     // -------------------------------------------------------------------------
